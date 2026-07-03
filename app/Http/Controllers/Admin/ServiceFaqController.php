@@ -41,7 +41,7 @@ class ServiceFaqController extends Controller
    */
   public function update(Request $request, Service $service, ServiceFaq $faq)
   {
-    abort_if($faq->service_id !== $service->id, 403);
+    abort_if($faq->service_id != $service->id, 403);
 
     $validated = $request->validate([
       'section_heading'  => 'nullable|string|max:255',
@@ -68,7 +68,7 @@ class ServiceFaqController extends Controller
    */
   public function destroy(Service $service, ServiceFaq $faq)
   {
-    abort_if($faq->service_id !== $service->id, 403);
+    abort_if($faq->service_id != $service->id, 403);
 
     try {
       $faq->delete();

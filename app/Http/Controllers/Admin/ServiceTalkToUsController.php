@@ -60,7 +60,7 @@ class ServiceTalkToUsController extends Controller
    */
   public function update(Request $request, Service $service, ServiceTalkToUs $talkToUs)
   {
-    abort_if($talkToUs->service_id !== $service->id, 403);
+    abort_if($talkToUs->service_id != $service->id, 403);
 
     $validated = $request->validate([
       'person_name'   => 'nullable|string|max:150',

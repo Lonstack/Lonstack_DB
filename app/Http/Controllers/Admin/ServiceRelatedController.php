@@ -54,7 +54,7 @@ class ServiceRelatedController extends Controller
    */
   public function destroy(Service $service, ServiceRelated $related)
   {
-    abort_if($related->service_id !== $service->id, 403);
+    abort_if($related->service_id != $service->id, 403);
 
     try {
       $related->delete();

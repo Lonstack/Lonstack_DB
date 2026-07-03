@@ -46,7 +46,7 @@ class ServiceTestimonialController extends Controller
    */
   public function update(Request $request, Service $service, ServiceTestimonial $testimonial)
   {
-    abort_if($testimonial->service_id !== $service->id, 403);
+    abort_if($testimonial->service_id != $service->id, 403);
 
     $validated = $request->validate([
       'section_heading'  => 'nullable|string|max:255',
@@ -77,7 +77,7 @@ class ServiceTestimonialController extends Controller
    */
   public function destroy(Service $service, ServiceTestimonial $testimonial)
   {
-    abort_if($testimonial->service_id !== $service->id, 403);
+    abort_if($testimonial->service_id != $service->id, 403);
 
     try {
       $testimonial->delete();

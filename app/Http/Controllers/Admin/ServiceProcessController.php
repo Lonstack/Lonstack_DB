@@ -40,7 +40,7 @@ class ServiceProcessController extends Controller
    */
   public function update(Request $request, Service $service, ServiceProcessStep $step)
   {
-    abort_if($step->service_id !== $service->id, 403);
+    abort_if($step->service_id != $service->id, 403);
 
     $validated = $request->validate([
       'section_heading'  => 'nullable|string|max:255',
@@ -66,7 +66,7 @@ class ServiceProcessController extends Controller
    */
   public function destroy(Service $service, ServiceProcessStep $step)
   {
-    abort_if($step->service_id !== $service->id, 403);
+    abort_if($step->service_id != $service->id, 403);
 
     try {
       $step->delete();

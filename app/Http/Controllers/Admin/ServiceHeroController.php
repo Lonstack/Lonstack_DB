@@ -12,6 +12,17 @@ use Illuminate\Support\Str;
 class ServiceHeroController extends Controller
 {
   /**
+   * Strip inline color styles injected by Quill editor.
+   */
+  private function cleanDescription(?string $html): ?string
+  {
+    if (!$html) return $html;
+    $html = preg_replace('/color\s*:\s*[^;"]+;?/i', '', $html);
+    $html = preg_replace('/style="\s*"/i', '', $html);
+    return $html;
+  }
+
+  /**
    * Store a new hero record for the service.
    */
   public function store(Request $request, Service $service)
@@ -40,13 +51,13 @@ class ServiceHeroController extends Controller
         $validated['image'] = $newImagePath;
       }
 
-      $validated['service_id'] = $service->id;
+      $validated['service_id']   = $service->id;
+      $validated['description']  = $this->cleanDescription($request->description);
 
       ServiceHero::create($validated);
 
       return back()->with('success', 'Hero section saved successfully.');
     } catch (\Exception $e) {
-      // Roll back uploaded file if DB write fails
       if ($newImagePath && Storage::disk('public')->exists($newImagePath)) {
         Storage::disk('public')->delete($newImagePath);
       }
@@ -57,12 +68,10 @@ class ServiceHeroController extends Controller
 
   /**
    * Update the existing hero record (PATCH).
-   * Safe order: upload new → update DB → delete old.
-   * Old image is only removed after a successful DB update.
    */
   public function update(Request $request, Service $service, ServiceHero $hero)
   {
-    abort_if($hero->service_id !== $service->id, 403);
+    abort_if($hero->service_id != $service->id, 403);
 
     $validated = $request->validate([
       'headline'            => 'required|string|max:255',
@@ -82,7 +91,6 @@ class ServiceHeroController extends Controller
     $oldImagePath = $hero->image;
 
     try {
-      // Step 1: Upload new image first (before touching the DB)
       if ($request->hasFile('image')) {
         $file = $request->file('image');
         $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
@@ -90,17 +98,16 @@ class ServiceHeroController extends Controller
         $validated['image'] = $newImagePath;
       }
 
-      // Step 2: Update the DB record
+      $validated['description'] = $this->cleanDescription($request->description);
+
       $hero->update($validated);
 
-      // Step 3: Only delete old image after DB update succeeds
       if ($newImagePath && $oldImagePath && Storage::disk('public')->exists($oldImagePath)) {
         Storage::disk('public')->delete($oldImagePath);
       }
 
       return back()->with('success', 'Hero section updated successfully.');
     } catch (\Exception $e) {
-      // Roll back newly uploaded file — old image is untouched
       if ($newImagePath && Storage::disk('public')->exists($newImagePath)) {
         Storage::disk('public')->delete($newImagePath);
       }

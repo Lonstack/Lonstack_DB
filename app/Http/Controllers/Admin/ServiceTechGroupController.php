@@ -39,7 +39,7 @@ class ServiceTechGroupController extends Controller
    */
   public function update(Request $request, Service $service, ServiceTechGroup $techGroup)
   {
-    abort_if($techGroup->service_id !== $service->id, 403);
+    abort_if($techGroup->service_id != $service->id, 403);
 
     $validated = $request->validate([
       'section_heading'  => 'nullable|string|max:255',
@@ -65,7 +65,7 @@ class ServiceTechGroupController extends Controller
    */
   public function destroy(Service $service, ServiceTechGroup $techGroup)
   {
-    abort_if($techGroup->service_id !== $service->id, 403);
+    abort_if($techGroup->service_id != $service->id, 403);
 
     try {
       $techGroup->delete();

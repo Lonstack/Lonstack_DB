@@ -17,7 +17,7 @@ class ServiceTechTagController extends Controller
   public function store(Request $request, Service $service, ServiceTechGroup $techGroup)
   {
     // Ensure the group belongs to this service
-    abort_if($techGroup->service_id !== $service->id, 403);
+    abort_if($techGroup->service_id != $service->id, 403);
 
     $validated = $request->validate([
       'name'        => 'required|string|max:100',
@@ -46,8 +46,8 @@ class ServiceTechTagController extends Controller
   public function destroy(Service $service, ServiceTechGroup $techGroup, ServiceTechTag $tag)
   {
     // Verify full ownership chain
-    abort_if($techGroup->service_id !== $service->id, 403);
-    abort_if($tag->service_tech_group_id !== $techGroup->id, 403);
+    abort_if($techGroup->service_id != $service->id, 403);
+    abort_if($tag->service_tech_group_id != $techGroup->id, 403);
 
     try {
       $tag->delete();

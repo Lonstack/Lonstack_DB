@@ -5285,8 +5285,8 @@ a.mapboxgl-ctrl-logo {
 }
 
 .page-title .page-title-content {
-    padding-top: 104px;
-    padding-bottom: 126px;
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 .page-title .page-title-content .title {
     color: var(--white);
@@ -5415,7 +5415,7 @@ a.mapboxgl-ctrl-logo {
 }
 .section-about.p-services .image {
     max-width: 520px;
-    padding-bottom: 86px;
+    padding-bottom: 0px;
 }
 .section-about.p-services .image img {
     width: 100%;

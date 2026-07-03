@@ -40,7 +40,7 @@ class ServiceBenefitController extends Controller
    */
   public function update(Request $request, Service $service, ServiceBenefit $benefit)
   {
-    abort_if($benefit->service_id !== $service->id, 403);
+    abort_if($benefit->service_id != $service->id, 403);
 
     $validated = $request->validate([
       'section_heading'  => 'nullable|string|max:255',
@@ -66,7 +66,7 @@ class ServiceBenefitController extends Controller
    */
   public function destroy(Service $service, ServiceBenefit $benefit)
   {
-    abort_if($benefit->service_id !== $service->id, 403);
+    abort_if($benefit->service_id != $service->id, 403);
 
     try {
       $benefit->delete();
