@@ -14,13 +14,7 @@ class ServiceHeroController extends Controller
   /**
    * Strip inline color styles injected by Quill editor.
    */
-  private function cleanDescription(?string $html): ?string
-  {
-    if (!$html) return $html;
-    $html = preg_replace('/color\s*:\s*[^;"]+;?/i', '', $html);
-    $html = preg_replace('/style="\s*"/i', '', $html);
-    return $html;
-  }
+
 
   /**
    * Store a new hero record for the service.
@@ -115,4 +109,15 @@ class ServiceHeroController extends Controller
       return back()->withInput()->with('error', 'Failed to update hero section. Please try again.');
     }
   }
+
+      private function cleanDescription($html)
+{
+    // Remove all inline color styles
+    $html = preg_replace('/color\s*:\s*[^;"]+;?/i', '', $html);
+
+    // Remove empty style="" attributes
+    $html = preg_replace('/style="\s*"/i', '', $html);
+
+    return $html;
+}
 }
