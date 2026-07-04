@@ -68,7 +68,7 @@
           @endif
 
           @if($service->hero->cta_primary_label || $service->hero->cta_secondary_label)
-          <div class="flex flex-wrap align-items-center g-20 title-animation">
+          <div class="flex flex-wrap align-items-center g-20 title-animation svc-hero-cta">
             @if($service->hero->cta_primary_label)
             <a href="{{ $service->hero->cta_primary_url ?? route('contact-us') }}" class="tf-btn">
               <span>{{ $service->hero->cta_primary_label }}</span>
@@ -113,7 +113,7 @@
       </div>
       @endif
 
-      <ul class="svc-numbered-list svc-numbered-list--2col">
+      <ul class="svc-numbered-list svc-numbered-list--2col svc-benefits-desktop">
         @foreach($service->benefits as $benefit)
         <li class="svc-numbered-item">
           <div class="svc-numbered-item__num">
@@ -130,6 +130,61 @@
         </li>
         @endforeach
       </ul>
+
+      {{-- Mobile: swiper slider --}}
+      <div class="svc-benefits-mobile">
+        <div class="swiper tf-swiper sw-benefits-steps"
+          data-swiper='{
+            "slidesPerView": 1,
+            "spaceBetween": 20,
+            "speed": 800,
+            "loop": true,
+            "autoplay": {
+              "delay": 4000,
+              "disableOnInteraction": false,
+              "pauseOnMouseEnter": true
+            },
+            "pagination": {
+              "el": ".sw-pagination-benefits",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".benefits-next",
+              "prevEl": ".benefits-prev"
+            },
+            "observer": true,
+            "observeParents": true
+          }'>
+          <div class="swiper-wrapper">
+            @foreach($service->benefits as $benefit)
+            <div class="swiper-slide">
+              <div class="svc-numbered-item" style="border:1px solid var(--stroke-2);padding:28px 24px;border-radius:8px;">
+                <div class="svc-numbered-item__num">
+                  {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
+                </div>
+                <div>
+                  <div class="svc-numbered-item__title">{{ $benefit->title }}</div>
+                  @if($benefit->description)
+                  <div class="svc-numbered-item__desc svc-rich-text">
+                    {!! $benefit->description !!}
+                  </div>
+                  @endif
+                </div>
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+        <div class="svc-swiper-controls">
+          <a class="arrow-btn style-border w-50 benefits-prev">
+            <i class="icon-arrow-left2"></i>
+          </a>
+          <div class="sw-pagination-benefits sw-pagination justify-content-center"></div>
+          <a class="arrow-btn style-border w-50 benefits-next">
+            <i class="icon-arrow-right2"></i>
+          </a>
+        </div>
+      </div>
 
     </div>
   </section>
@@ -208,7 +263,8 @@
       </div>
       @endif
 
-      <div class="svc-process-grid">
+      {{-- Desktop: grid layout --}}
+      <div class="svc-process-grid svc-process-desktop">
         @foreach($service->processSteps as $step)
         <div class="svc-process-item">
           <span class="svc-process-item__num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
@@ -220,6 +276,57 @@
           @endif
         </div>
         @endforeach
+      </div>
+
+      {{-- Mobile: swiper slider --}}
+      <div class="svc-process-mobile">
+        <div class="swiper tf-swiper sw-process-steps"
+          data-swiper='{
+            "slidesPerView": 1,
+            "spaceBetween": 20,
+            "speed": 800,
+            "loop": true,
+            "autoplay": {
+              "delay": 4000,
+              "disableOnInteraction": false,
+              "pauseOnMouseEnter": true
+            },
+            "pagination": {
+              "el": ".sw-pagination-process",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".process-next",
+              "prevEl": ".process-prev"
+            },
+            "observer": true,
+            "observeParents": true
+          }'>
+          <div class="swiper-wrapper">
+            @foreach($service->processSteps as $step)
+            <div class="swiper-slide">
+              <div class="svc-process-item">
+                <span class="svc-process-item__num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                <div class="svc-process-item__title">{{ $step->title }}</div>
+                @if($step->description)
+                <div class="svc-process-item__desc svc-rich-text">
+                  {!! $step->description !!}
+                </div>
+                @endif
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+        <div class="svc-swiper-controls">
+          <a class="arrow-btn style-border w-50 process-prev">
+            <i class="icon-arrow-left2"></i>
+          </a>
+          <div class="sw-pagination-process sw-pagination justify-content-center"></div>
+          <a class="arrow-btn style-border w-50 process-next">
+            <i class="icon-arrow-right2"></i>
+          </a>
+        </div>
       </div>
 
     </div>
@@ -301,7 +408,8 @@
       </div>
       @endif
 
-      <div class="row rg-30">
+      {{-- Desktop grid --}}
+      <div class="row rg-30 svc-testimonials-desktop">
         @foreach($service->testimonials as $testimonial)
         <div class="col-xl-4 col-md-6">
           <div class="testimonial-item style-2" style="display:flex;flex-direction:column;height:100%;">
@@ -330,11 +438,82 @@
         @endforeach
       </div>
 
+      {{-- Mobile swiper --}}
+      <div class="svc-testimonials-mobile">
+        <div class="swiper tf-swiper sw-testimonials-svc"
+          data-swiper='{
+            "slidesPerView": 1,
+            "spaceBetween": 20,
+            "speed": 800,
+            "loop": true,
+            "autoplay": {
+              "delay": 4500,
+              "disableOnInteraction": false,
+              "pauseOnMouseEnter": true
+            },
+            "pagination": {
+              "el": ".sw-pagination-testimonials-svc",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".testimonials-svc-next",
+              "prevEl": ".testimonials-svc-prev"
+            },
+            "observer": true,
+            "observeParents": true
+          }'>
+          <div class="swiper-wrapper">
+            @foreach($service->testimonials as $testimonial)
+            <div class="swiper-slide">
+              <div class="testimonial-item style-2" style="display:flex;flex-direction:column;">
+                <div class="top-item">
+                  <div class="icon"><i class="icon-quote2"></i></div>
+                  <div class="image-avatar" style="display:flex;align-items:center;justify-content:center;background:rgba(var(--primary-rgb),.15);color:var(--primary);font-weight:700;font-size:22px;width:72px;height:72px;border-radius:50%;flex-shrink:0;">
+                    {{ strtoupper(substr($testimonial->client_name, 0, 1)) }}
+                  </div>
+                </div>
+                <div class="mb-20" style="display:flex;gap:5px;">
+                  @for($i = 1; $i <= 5; $i++)
+                    <span style="font-size:16px;color:{{ $i <= $testimonial->rating ? '#f5a623' : 'rgba(255,255,255,.15)' }};">★</span>
+                    @endfor
+                </div>
+                <div class="text" style="flex:1;font-size:15px;line-height:1.85;color:rgba(255,255,255,.7);">
+                  "{{ $testimonial->quote }}"
+                </div>
+                <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--stroke-2);">
+                  <span class="name-user body-2 fw-6 d-block">{{ $testimonial->client_name }}</span>
+                  @if($testimonial->client_role)
+                  <span class="position text-medium d-block" style="line-height:1.6;margin-top:4px;opacity:.5;">{{ $testimonial->client_role }}</span>
+                  @endif
+                </div>
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+        <div class="svc-swiper-controls">
+          <a class="arrow-btn style-border w-50 testimonials-svc-prev">
+            <i class="icon-arrow-left2"></i>
+          </a>
+          <div class="sw-pagination-testimonials-svc sw-pagination justify-content-center"></div>
+          <a class="arrow-btn style-border w-50 testimonials-svc-next">
+            <i class="icon-arrow-right2"></i>
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
   @endif
 
   {{-- ══════════════════════════════════════════
+         7. FAQs</div>
+
+</div>
+</section>
+@endif
+
+{{-- ══════════════════════════════════════════
          7. FAQs — accordion left, image right
     ══════════════════════════════════════════ --}}
   @if($service->faqs->isNotEmpty())
@@ -397,7 +576,7 @@
          8. RELATED SERVICES — theme service cards
     ══════════════════════════════════════════ --}}
   @if($service->relatedServices->isNotEmpty())
-  <section class="section-services tf-spacing-2">
+  <section class="section-services tf-spacing-2 svc-related">
     <div class="tf-container">
 
       @if($service->relatedServices->first()->section_heading)

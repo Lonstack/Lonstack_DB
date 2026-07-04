@@ -830,6 +830,10 @@
     line-height: 1.3;
 }
 
+.svc-section-heading h3{
+    line-height: 1.3;
+}
+
 /* ── Numbered list layout (Peiko-style) ── */
 .svc-numbered-list {
     list-style: none;
@@ -4178,3 +4182,108 @@
     width: 100%;
 }
 
+
+
+/* ── Related services: 2 columns on desktop, 1 on mobile ── */
+.svc-related .list-services .services-item {
+    flex: 1 1 auto;
+    max-width: 50%;
+}
+@media (max-width: 767px) {
+    .svc-related .list-services .services-item {
+        max-width: 100%;
+    }
+}
+
+
+/* ── Service hero CTA buttons: full width on mobile ── */
+@media (max-width: 767px) {
+    .svc-hero-cta {
+        flex-direction: column !important;
+        width: 100% !important;
+        display: flex !important;
+    }
+    .svc-hero-cta a.tf-btn {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+    }
+}
+
+
+/* ── Service FAQ: center heading on mobile ── */
+@media (max-width: 991px) {
+    .section-company .left-section .heading-section {
+        text-align: center !important;
+    }
+    .section-company .left-section .heading-section .sub-title,
+    .section-company .left-section .heading-section h2 {
+        text-align: center !important;
+    }
+}
+
+
+/* ── Service process: desktop grid, mobile swiper ── */
+.svc-process-mobile { display: none; }
+.svc-process-desktop { display: grid; }
+
+/* ── Service benefits: desktop list, mobile swiper ── */
+.svc-benefits-mobile { display: none; }
+.svc-benefits-desktop { display: grid; }
+
+/* ── Swiper controls row (prev, dots, next) ── */
+.svc-swiper-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 28px;
+}
+.svc-swiper-controls .sw-pagination {
+    flex: 1;
+}
+
+@media (max-width: 767px) {
+    .svc-process-desktop { display: none !important; }
+    .svc-process-mobile { display: block; }
+    .svc-process-mobile .svc-process-item {
+        border: 1px solid var(--stroke-2);
+        padding: 30px 24px;
+        border-radius: 8px;
+        min-height: 200px;
+    }
+
+    .svc-benefits-desktop { display: none !important; }
+    .svc-benefits-mobile { display: block; }
+}
+
+
+/* ── Testimonials: desktop grid, mobile swiper ── */
+.svc-testimonials-mobile { display: none; }
+.svc-testimonials-desktop { display: flex; flex-wrap: wrap; }
+
+@media (max-width: 767px) {
+    .svc-testimonials-desktop { display: none !important; }
+    .svc-testimonials-mobile { display: block; }
+}
+
+/* ── Talk To Us: mobile fixes ── */
+@media (max-width: 991px) {
+    .svc-cta-strip .col-lg-3.text-lg-end {
+        text-align: center !important;
+        margin-top: 24px;
+    }
+    .svc-cta-strip .col-lg-3.text-lg-end a.tf-btn {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+    .svc-cta-strip .col-lg-6 {
+        margin-top: 20px;
+    }
+}
