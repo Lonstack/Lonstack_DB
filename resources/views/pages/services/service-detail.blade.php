@@ -100,11 +100,13 @@
 
       @if($service->benefits->first()->section_heading)
       <div class="svc-section-heading">
-        <div class="sub-title body-2 fw-7 mb-17 title-animation">
-          {{ $service->benefits->first()->section_heading }}
+        <div class="title body-2 fw-7 mb-17 title-animation">
+          <h3>
+            {{ strtoupper($service->benefits->first()->section_heading) }}
+          </h3>
         </div>
         @if($service->benefits->first()->section_subtitle)
-        <h2 class="title fw-6 title-animation">
+        <h2 class="sub-title fw-6 title-animation">
           {{ $service->benefits->first()->section_subtitle }}
         </h2>
         @endif
@@ -196,7 +198,7 @@
       @if($service->processSteps->first()->section_heading)
       <div class="svc-section-heading" style="margin-bottom:48px;">
         <div class="sub-title body-2 fw-7 mb-17 title-animation">
-          {{ $service->processSteps->first()->section_heading }}
+          <h3>{{ strtoupper($service->processSteps->first()->section_heading) }}</h3>
         </div>
         @if($service->processSteps->first()->section_subtitle)
         <h2 class="title fw-6 title-animation">
@@ -234,7 +236,7 @@
       @if($service->techGroups->first()->section_heading)
       <div class="svc-section-heading">
         <div class="sub-title body-2 fw-7 mb-17 title-animation">
-          {{ $service->techGroups->first()->section_heading }}
+          <h3> {{ strtoupper($service->techGroups->first()->section_heading) }}</h3>
         </div>
         @if($service->techGroups->first()->section_subtitle)
         <h2 class="title fw-6 title-animation">
@@ -289,7 +291,7 @@
       @if($service->testimonials->first()->section_heading)
       <div class="svc-section-heading">
         <div class="sub-title body-2 fw-7 mb-17 title-animation">
-          {{ $service->testimonials->first()->section_heading }}
+          <h3> {{ strtoupper($service->testimonials->first()->section_heading) }}</h3>
         </div>
         @if($service->testimonials->first()->section_subtitle)
         <h2 class="title fw-6 title-animation">
@@ -344,7 +346,7 @@
           @if($service->faqs->first()->section_heading)
           <div class="heading-section mb-53">
             <div class="sub-title body-2 fw-7 mb-17 title-animation">
-              {{ $service->faqs->first()->section_heading }}
+              <h3> {{ strtoupper($service->faqs->first()->section_heading) }}</h3>
             </div>
             @if($service->faqs->first()->section_subtitle)
             <h2 class="title fw-6 title-animation">
@@ -401,7 +403,7 @@
       @if($service->relatedServices->first()->section_heading)
       <div class="svc-section-heading">
         <div class="sub-title body-2 fw-7 mb-17 title-animation">
-          {{ $service->relatedServices->first()->section_heading }}
+          <h3>{{ strtoupper($service->relatedServices->first()->section_heading) }}</h3>
         </div>
       </div>
       @endif
