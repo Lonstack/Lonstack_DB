@@ -408,114 +408,76 @@
       </div>
       @endif
 
-      {{-- Desktop grid --}}
-      <div class="row rg-30 svc-testimonials-desktop">
-        @foreach($service->testimonials as $testimonial)
-        <div class="col-xl-4 col-md-6">
-          <div class="testimonial-item style-2" style="display:flex;flex-direction:column;height:100%;">
-            <div class="top-item">
-              <div class="icon"><i class="icon-quote2"></i></div>
-              <div class="image-avatar" style="display:flex;align-items:center;justify-content:center;background:rgba(var(--primary-rgb),.15);color:var(--primary);font-weight:700;font-size:22px;width:72px;height:72px;border-radius:50%;flex-shrink:0;">
-                {{ strtoupper(substr($testimonial->client_name, 0, 1)) }}
+      <div class="swiper tf-swiper sw-svc-testimonials"
+        data-swiper='{
+          "slidesPerView": 1,
+          "spaceBetween": 30,
+          "speed": 800,
+          "loop": true,
+          "autoplay": {
+            "delay": 4500,
+            "disableOnInteraction": false,
+            "pauseOnMouseEnter": true
+          },
+          "pagination": {
+            "el": ".sw-pagination-svc-tes",
+            "clickable": true
+          },
+          "navigation": {
+            "nextEl": ".svc-tes-next",
+            "prevEl": ".svc-tes-prev"
+          },
+          "breakpoints": {
+            "575": { "slidesPerView": 2, "slidesPerGroup": 1 },
+            "1200": { "slidesPerView": 3, "slidesPerGroup": 1 }
+          },
+          "observer": true,
+          "observeParents": true
+        }'>
+        <div class="swiper-wrapper">
+          @foreach($service->testimonials as $testimonial)
+          <div class="swiper-slide">
+            <div class="testimonial-item style-2" style="display:flex;flex-direction:column;height:100%;">
+              <div class="top-item">
+                <div class="icon"><i class="icon-quote2"></i></div>
+                <div class="image-avatar" style="display:flex;align-items:center;justify-content:center;background:rgba(67,186,255,.15);color:var(--primary);font-weight:700;font-size:16px;width:50px;height:50px;border-radius:50%;flex-shrink:0;">
+                  {{ strtoupper(substr($testimonial->client_name, 0, 1)) }}
+                </div>
+              </div>
+              <div class="mb-20" style="display:flex;gap:5px;justify-content:center;">
+                @for($i = 1; $i <= 5; $i++)
+                  <span style="font-size:16px;color:{{ $i <= $testimonial->rating ? '#f5a623' : 'rgba(255,255,255,.15)' }};">&#9733;</span>
+                  @endfor
+              </div>
+              <div class="text lh-30" style="flex:1;font-size:15px;color:rgba(255,255,255,.7);">
+                "{{ $testimonial->quote }}"
+              </div>
+              <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--stroke-2);">
+                <span class="name-user body-2 fw-6 d-block">{{ $testimonial->client_name }}</span>
+                @if($testimonial->client_role)
+                <span class="position text-medium d-block" style="line-height:1.6;margin-top:4px;opacity:.5;">{{ $testimonial->client_role }}</span>
+                @endif
               </div>
             </div>
-            <div class="mb-20" style="display:flex;gap:5px;">
-              @for($i = 1; $i <= 5; $i++)
-                <span style="font-size:16px;color:{{ $i <= $testimonial->rating ? '#f5a623' : 'rgba(255,255,255,.15)' }};">★</span>
-                @endfor
-            </div>
-            <div class="text" style="flex:1;font-size:15px;line-height:1.85;color:rgba(255,255,255,.7);">
-              "{{ $testimonial->quote }}"
-            </div>
-            <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--stroke-2);">
-              <span class="name-user body-2 fw-6 d-block">{{ $testimonial->client_name }}</span>
-              @if($testimonial->client_role)
-              <span class="position text-medium d-block" style="line-height:1.6;margin-top:4px;opacity:.5;">{{ $testimonial->client_role }}</span>
-              @endif
-            </div>
           </div>
+          @endforeach
         </div>
-        @endforeach
       </div>
 
-      {{-- Mobile swiper --}}
-      <div class="svc-testimonials-mobile">
-        <div class="swiper tf-swiper sw-testimonials-svc"
-          data-swiper='{
-            "slidesPerView": 1,
-            "spaceBetween": 20,
-            "speed": 800,
-            "loop": true,
-            "autoplay": {
-              "delay": 4500,
-              "disableOnInteraction": false,
-              "pauseOnMouseEnter": true
-            },
-            "pagination": {
-              "el": ".sw-pagination-testimonials-svc",
-              "clickable": true
-            },
-            "navigation": {
-              "nextEl": ".testimonials-svc-next",
-              "prevEl": ".testimonials-svc-prev"
-            },
-            "observer": true,
-            "observeParents": true
-          }'>
-          <div class="swiper-wrapper">
-            @foreach($service->testimonials as $testimonial)
-            <div class="swiper-slide">
-              <div class="testimonial-item style-2" style="display:flex;flex-direction:column;">
-                <div class="top-item">
-                  <div class="icon"><i class="icon-quote2"></i></div>
-                  <div class="image-avatar" style="display:flex;align-items:center;justify-content:center;background:rgba(var(--primary-rgb),.15);color:var(--primary);font-weight:700;font-size:22px;width:72px;height:72px;border-radius:50%;flex-shrink:0;">
-                    {{ strtoupper(substr($testimonial->client_name, 0, 1)) }}
-                  </div>
-                </div>
-                <div class="mb-20" style="display:flex;gap:5px;">
-                  @for($i = 1; $i <= 5; $i++)
-                    <span style="font-size:16px;color:{{ $i <= $testimonial->rating ? '#f5a623' : 'rgba(255,255,255,.15)' }};">★</span>
-                    @endfor
-                </div>
-                <div class="text" style="flex:1;font-size:15px;line-height:1.85;color:rgba(255,255,255,.7);">
-                  "{{ $testimonial->quote }}"
-                </div>
-                <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--stroke-2);">
-                  <span class="name-user body-2 fw-6 d-block">{{ $testimonial->client_name }}</span>
-                  @if($testimonial->client_role)
-                  <span class="position text-medium d-block" style="line-height:1.6;margin-top:4px;opacity:.5;">{{ $testimonial->client_role }}</span>
-                  @endif
-                </div>
-              </div>
-            </div>
-            @endforeach
-          </div>
-        </div>
-        <div class="svc-swiper-controls">
-          <a class="arrow-btn style-border w-50 testimonials-svc-prev">
-            <i class="icon-arrow-left2"></i>
-          </a>
-          <div class="sw-pagination-testimonials-svc sw-pagination justify-content-center"></div>
-          <a class="arrow-btn style-border w-50 testimonials-svc-next">
-            <i class="icon-arrow-right2"></i>
-          </a>
-        </div>
+      <div class="svc-swiper-controls mt-30">
+        <a class="arrow-btn style-border w-50 svc-tes-prev">
+          <i class="icon-arrow-left2"></i>
+        </a>
+        <div class="sw-pagination-svc-tes sw-pagination justify-content-center"></div>
+        <a class="arrow-btn style-border w-50 svc-tes-next">
+          <i class="icon-arrow-right2"></i>
+        </a>
       </div>
 
     </div>
   </section>
   @endif
 
-  {{-- ══════════════════════════════════════════
-         7. FAQs</div>
-
-</div>
-</section>
-@endif
-
-{{-- ══════════════════════════════════════════
-         7. FAQs — accordion left, image right
-    ══════════════════════════════════════════ --}}
   @if($service->faqs->isNotEmpty())
   <section class="section-company tf-spacing-2">
     <div class="tf-container w-1810">

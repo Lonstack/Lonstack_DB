@@ -3534,11 +3534,11 @@ fieldset {
     background-color: var(--main-dark);
     border: 1px solid var(--stroke-2);
     text-align: center;
-    padding: 50px 15px 47px;
+    padding: 25px 15px;
 }
 .testimonial-item.style-2 .icon {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -3552,7 +3552,7 @@ fieldset {
     position: relative;
 }
 .testimonial-item.style-2 .icon i {
-    font-size: 15px;
+    font-size: 6px;
     color: var(--white);
 }
 .testimonial-item.style-2 .image-avatar {
@@ -3574,11 +3574,11 @@ fieldset {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 .testimonial-item.style-2 .text {
-    max-width: 270px;
-    margin-bottom: 24px;
+    max-width: 100%;
+    margin-bottom: 0px;
     margin-left: auto;
     margin-right: auto;
     color: var(--surface);
@@ -3683,7 +3683,7 @@ fieldset {
     object-fit: cover;
 }
 .according-item .according-content .right {
-    padding-left: 51px;
+    padding-left: 25px;
     padding-top: 8.5px;
     padding-bottom: 8.5px;
 }

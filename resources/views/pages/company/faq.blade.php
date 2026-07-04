@@ -269,12 +269,7 @@
                             I’ve 342+ Clients
                             <span class="fw-3">Feedback</span>
                         </h2>
-                        <div class="desc mb-60 title-animation">
-                            <p class="lh-30">
-                                Sed ut perspiciatis unde omnin natus totam
-                                rem aperiam eaque inventore veritatis
-                            </p>
-                        </div>
+                       
                         <div class="list-btn flex align-items-center g-10">
                             <div class="scrolling-effect effectBottom">
                                 <a class="arrow-btn style-border w-50 arrow-prev testimonials-prev">

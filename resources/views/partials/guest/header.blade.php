@@ -161,7 +161,7 @@
                                                     an employee</span>
                                             </div>
                                         </a>
-                                        <a href="{{ route('faq') }}" class="mega-service-item">
+                                        {{-- <a href="{{ route('faq') }}" class="mega-service-item">
                                             <div class="mega-service-icon"><i class="ti ti-message-question"></i>
                                             </div>
                                             <div class="mega-service-text">
@@ -169,7 +169,7 @@
                                                 <span class="mega-service-desc">Answers to the most frequently asked
                                                     questions</span>
                                             </div>
-                                        </a>
+                                        </a> --}}
                                         {{-- <a href="{{ route('press') }}" class="mega-service-item">
                                             <div class="mega-service-icon"><i class="ti ti-news"></i></div>
                                             <div class="mega-service-text">
