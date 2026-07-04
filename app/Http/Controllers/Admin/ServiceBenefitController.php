@@ -25,7 +25,6 @@ class ServiceBenefitController extends Controller
     ]);
 
     try {
-      $validated['description'] = $this->cleanDescription($validated['description'] ?? null);
       $validated['service_id'] = $service->id;
 
       ServiceBenefit::create($validated);
@@ -54,7 +53,6 @@ class ServiceBenefitController extends Controller
     ]);
 
     try {
-      $validated['description'] = $this->cleanDescription($validated['description'] ?? null);
       $benefit->update($validated);
 
       return back()->with('success', 'Benefit updated successfully.');
@@ -79,14 +77,5 @@ class ServiceBenefitController extends Controller
     }
   }
 
-      private function cleanDescription($html)
-{
-    // Remove all inline color styles
-    $html = preg_replace('/color\s*:\s*[^;"]+;?/i', '', $html);
-
-    // Remove empty style="" attributes
-    $html = preg_replace('/style="\s*"/i', '', $html);
-
-    return $html;
-}
+  
 }
