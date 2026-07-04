@@ -34,7 +34,25 @@ class PageController extends Controller
       ->orderBy('created_at')
       ->get();
 
-    return view('welcome', compact('homeBlogs', 'homeTestimonials', 'homePortfolios', 'homeTeam'));
+    // Home page services — pick one featured (HOT badge first, then random) + up to 7 others
+    $allHomeServices = Service::with('category')
+      ->where('is_active', true)
+      ->orderByRaw("CASE WHEN badge = 'hot' THEN 0 WHEN badge = 'new' THEN 1 ELSE 2 END")
+      ->orderBy('sort_order')
+      ->take(8)
+      ->get();
+
+    $homeFeaturedService = $allHomeServices->first();
+    $homeOtherServices   = $allHomeServices->skip(1)->values();
+
+    return view('welcome', compact(
+      'homeBlogs',
+      'homeTestimonials',
+      'homePortfolios',
+      'homeTeam',
+      'homeFeaturedService',
+      'homeOtherServices'
+    ));
   }
 
   public function about()

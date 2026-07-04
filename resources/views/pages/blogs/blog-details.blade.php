@@ -89,10 +89,30 @@
             <div class="bd-share">
               <span class="bd-share__label">Share</span>
               <ul class="post-social style-radius-50 g-10">
-                <li><a href="#" class="icon-social"><i class="icon-fb"></i></a></li>
-                <li><a href="#" class="icon-social"><i class="icon-X"></i></a></li>
-                <li><a href="#" class="icon-social"><i class="icon-linkedin"></i></a></li>
-                <li><a href="#" class="icon-social"><i class="icon-instagram"></i></a></li>
+                <li>
+                  <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
+                    target="_blank" rel="noopener" class="icon-social">
+                    <i class="icon-fb"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($blog->title) }}"
+                    target="_blank" rel="noopener" class="icon-social">
+                    <i class="icon-X"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
+                    target="_blank" rel="noopener" class="icon-social">
+                    <i class="icon-linkedin"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com"
+                    target="_blank" rel="noopener" class="icon-social">
+                    <i class="icon-instagram"></i>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
