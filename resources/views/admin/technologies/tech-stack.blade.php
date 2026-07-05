@@ -284,7 +284,7 @@
           <div class="mb-3">
             <label class="form-label">Replace Icon <small class="text-muted">(leave empty to keep current)</small></label>
             <div id="ei_current_icon" class="mb-2"></div>
-            <input type="file" name="icon" class="form-control" accept="image/*">
+            <input type="file" name="icon" class="form-control" accept="image/*,.svg">
           </div>
           <div class="row">
             <div class="col-6">
