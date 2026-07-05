@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class ServiceBenefitController extends Controller
 {
-  /**
-   * Store a new benefit for the service.
-   */
   public function store(Request $request, Service $service)
   {
     $validated = $request->validate([
