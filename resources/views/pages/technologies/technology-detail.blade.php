@@ -43,7 +43,7 @@
         @endif
 
         @if($technology->hero->cta_label)
-        <a href="{{ $technology->hero->cta_url ?? route('contact-us') }}" class="tf-btn">
+        <a href="{{ $technology->hero->cta_url ?? route('contact-us') }}" class="tf-btn tech-hero__cta">
           <span>{{ $technology->hero->cta_label }}</span>
           <i class="icon-arrow-right"></i>
         </a>
@@ -88,13 +88,13 @@
           <div class="td-label">{{ $technology->advantages->first()->section_heading ?? 'Advantages' }}</div>
           <h2 class="td-heading">What Are the Advantages of <br> {{ $technology->name }}</h2>
         </div>
-        <a href="{{ route('contact-us') }}" class="tf-btn td-section-head__btn">
+        <a href="{{ route('contact-us') }}" class="tf-btn td-section-head__btn td-cta-full-mobile">
           <span>Hire Us</span><i class="icon-arrow-right"></i>
         </a>
       </div>
 
-      {{-- Cards grid --}}
-      <div class="td-adv-grid">
+      {{-- Desktop: Cards grid --}}
+      <div class="td-adv-grid td-adv-desktop">
         @foreach($technology->advantages as $item)
         <div class="td-adv-card">
           <div class="td-adv-card__num">{{ str_pad($loop->iteration,2,'0',STR_PAD_LEFT) }}</div>
@@ -104,6 +104,51 @@
           @endif
         </div>
         @endforeach
+      </div>
+
+      {{-- Mobile: Swiper --}}
+      <div class="td-adv-mobile">
+        <div class="swiper tf-swiper td-adv-swiper"
+          data-swiper='{
+            "slidesPerView": 1,
+            "spaceBetween": 20,
+            "speed": 700,
+            "loop": true,
+            "autoplay": {
+              "delay": 3500,
+              "disableOnInteraction": false,
+              "pauseOnMouseEnter": true
+            },
+            "pagination": {
+              "el": ".td-adv-dots",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".td-adv-next",
+              "prevEl": ".td-adv-prev"
+            },
+            "observer": true,
+            "observeParents": true
+          }'>
+          <div class="swiper-wrapper">
+            @foreach($technology->advantages as $item)
+            <div class="swiper-slide">
+              <div class="td-adv-card td-adv-card--slide">
+                <div class="td-adv-card__num">{{ str_pad($loop->iteration,2,'0',STR_PAD_LEFT) }}</div>
+                <h3 class="td-adv-card__title">{{ $item->title }}</h3>
+                @if($item->description)
+                <div class="td-adv-card__desc">{!! $item->description !!}</div>
+                @endif
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+        <div class="td-swiper-controls">
+          <a class="arrow-btn style-border td-adv-prev"><i class="icon-arrow-left2"></i></a>
+          <div class="td-adv-dots sw-pagination justify-content-center"></div>
+          <a class="arrow-btn style-border td-adv-next"><i class="icon-arrow-right2"></i></a>
+        </div>
       </div>
 
     </div>
@@ -116,7 +161,9 @@
     <div class="tf-container">
       <div class="td-label">{{ $technology->benefits->first()->section_heading ?? 'Benefits' }}</div>
       <h2 class="td-heading">What Are the Benefits of {{ $technology->name }}</h2>
-      <div class="td-ben-grid">
+
+      {{-- Desktop: grid --}}
+      <div class="td-ben-grid td-ben-desktop">
         @foreach($technology->benefits as $item)
         <div class="td-ben-card">
           <div class="td-ben-num">{{ str_pad($loop->iteration,2,'0',STR_PAD_LEFT) }}</div>
@@ -127,6 +174,52 @@
         </div>
         @endforeach
       </div>
+
+      {{-- Mobile: swiper --}}
+      <div class="td-ben-mobile">
+        <div class="swiper tf-swiper td-ben-swiper"
+          data-swiper='{
+            "slidesPerView": 1,
+            "spaceBetween": 20,
+            "speed": 700,
+            "loop": true,
+            "autoplay": {
+              "delay": 3500,
+              "disableOnInteraction": false,
+              "pauseOnMouseEnter": true
+            },
+            "pagination": {
+              "el": ".td-ben-dots",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".td-ben-next",
+              "prevEl": ".td-ben-prev"
+            },
+            "observer": true,
+            "observeParents": true
+          }'>
+          <div class="swiper-wrapper">
+            @foreach($technology->benefits as $item)
+            <div class="swiper-slide">
+              <div class="td-ben-card td-ben-card--slide">
+                <div class="td-ben-num">{{ str_pad($loop->iteration,2,'0',STR_PAD_LEFT) }}</div>
+                <div class="td-ben-title">{{ $item->title }}</div>
+                @if($item->description)
+                <div class="td-ben-desc">{!! $item->description !!}</div>
+                @endif
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+        <div class="td-swiper-controls">
+          <a class="arrow-btn style-border td-ben-prev"><i class="icon-arrow-left2"></i></a>
+          <div class="td-ben-dots sw-pagination justify-content-center"></div>
+          <a class="arrow-btn style-border td-ben-next"><i class="icon-arrow-right2"></i></a>
+        </div>
+      </div>
+
     </div>
   </section>
   @endif
@@ -135,27 +228,83 @@
   @if($technology->whyUs->isNotEmpty())
   <section class="td-section">
     <div class="tf-container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="td-why-sticky">
-            <div class="td-label">{{ $technology->whyUs->first()->section_heading ?? 'Why Choose Us' }}</div>
-            <h2 class="td-heading">Why Choose Us</h2>
-            <a href="{{ route('contact-us') }}" class="tf-btn" style="margin-top:32px;">
-              <span>Hire Us</span><i class="icon-arrow-right"></i>
-            </a>
+
+      {{-- Desktop layout: sticky left + scrolling right --}}
+      <div class="td-why-desktop">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="td-why-sticky">
+              <div class="td-label">{{ $technology->whyUs->first()->section_heading ?? 'Why Choose Us' }}</div>
+              <h2 class="td-heading">Why Choose Us</h2>
+              <a href="{{ route('contact-us') }}" class="tf-btn" style="margin-top:32px;">
+                <span>Hire Us</span><i class="icon-arrow-right"></i>
+              </a>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-7 offset-lg-1">
-          @foreach($technology->whyUs as $item)
-          <div class="td-why-item">
-            <div class="td-why-title">{{ $item->title }}</div>
-            @if($item->description)
-            <div class="td-why-desc">{!! $item->description !!}</div>
-            @endif
+          <div class="col-lg-7 offset-lg-1">
+            @foreach($technology->whyUs as $item)
+            <div class="td-why-item">
+              <div class="td-why-title">{{ $item->title }}</div>
+              @if($item->description)
+              <div class="td-why-desc">{!! $item->description !!}</div>
+              @endif
+            </div>
+            @endforeach
           </div>
-          @endforeach
         </div>
       </div>
+
+      {{-- Mobile layout: heading + CTA full width + swiper --}}
+      <div class="td-why-mobile">
+        <div class="td-label">{{ $technology->whyUs->first()->section_heading ?? 'Why Choose Us' }}</div>
+        <h2 class="td-heading">Why Choose Us</h2>
+
+        <div class="swiper tf-swiper td-why-swiper"
+          data-swiper='{
+            "slidesPerView": 1,
+            "spaceBetween": 20,
+            "speed": 700,
+            "loop": true,
+            "autoplay": {
+              "delay": 3500,
+              "disableOnInteraction": false,
+              "pauseOnMouseEnter": true
+            },
+            "pagination": {
+              "el": ".td-why-dots",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".td-why-next",
+              "prevEl": ".td-why-prev"
+            },
+            "observer": true,
+            "observeParents": true
+          }'>
+          <div class="swiper-wrapper">
+            @foreach($technology->whyUs as $item)
+            <div class="swiper-slide">
+              <div class="td-why-item td-why-item--slide">
+                <div class="td-why-title">{{ $item->title }}</div>
+                @if($item->description)
+                <div class="td-why-desc">{!! $item->description !!}</div>
+                @endif
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+        <div class="td-swiper-controls">
+          <a class="arrow-btn style-border td-why-prev"><i class="icon-arrow-left2"></i></a>
+          <div class="td-why-dots sw-pagination justify-content-center"></div>
+          <a class="arrow-btn style-border td-why-next"><i class="icon-arrow-right2"></i></a>
+        </div>
+
+        <a href="{{ route('contact-us') }}" class="tf-btn td-cta-full-mobile" style="margin-top:32px;">
+          <span>Hire Us</span><i class="icon-arrow-right"></i>
+        </a>
+      </div>
+
     </div>
   </section>
   @endif
@@ -166,7 +315,9 @@
     <div class="tf-container">
       <div class="td-label">{{ $technology->processes->first()->section_heading ?? 'Our Process' }}</div>
       <h2 class="td-heading">Our {{ $technology->name }} Process</h2>
-      <div class="td-proc-grid">
+
+      {{-- Desktop: staggered grid --}}
+      <div class="td-proc-grid td-proc-desktop">
         @foreach($technology->processes as $item)
         <div class="td-proc-card">
           <div class="td-proc-num">{{ str_pad($loop->iteration,2,'0',STR_PAD_LEFT) }}</div>
@@ -177,6 +328,52 @@
         </div>
         @endforeach
       </div>
+
+      {{-- Mobile: swiper --}}
+      <div class="td-proc-mobile">
+        <div class="swiper tf-swiper td-proc-swiper"
+          data-swiper='{
+            "slidesPerView": 1,
+            "spaceBetween": 20,
+            "speed": 700,
+            "loop": true,
+            "autoplay": {
+              "delay": 3500,
+              "disableOnInteraction": false,
+              "pauseOnMouseEnter": true
+            },
+            "pagination": {
+              "el": ".td-proc-dots",
+              "clickable": true
+            },
+            "navigation": {
+              "nextEl": ".td-proc-next",
+              "prevEl": ".td-proc-prev"
+            },
+            "observer": true,
+            "observeParents": true
+          }'>
+          <div class="swiper-wrapper">
+            @foreach($technology->processes as $item)
+            <div class="swiper-slide">
+              <div class="td-proc-card td-proc-card--slide">
+                <div class="td-proc-num">{{ str_pad($loop->iteration,2,'0',STR_PAD_LEFT) }}</div>
+                <div class="td-proc-title">{{ $item->title }}</div>
+                @if($item->description)
+                <div class="td-proc-desc">{!! $item->description !!}</div>
+                @endif
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+        <div class="td-swiper-controls">
+          <a class="arrow-btn style-border td-proc-prev"><i class="icon-arrow-left2"></i></a>
+          <div class="td-proc-dots sw-pagination justify-content-center"></div>
+          <a class="arrow-btn style-border td-proc-next"><i class="icon-arrow-right2"></i></a>
+        </div>
+      </div>
+
     </div>
   </section>
   @endif
@@ -211,7 +408,7 @@
               <label class="sub-title body-2 fw-5">Message</label>
               <textarea name="message" placeholder="Tell us about your project" required></textarea>
             </fieldset>
-            <a href="{{ route('contact-us') }}" class="tf-btn">
+            <a href="{{ route('contact-us') }}" class="tf-btn td-contact-cta">
               <span>Get A Free Consultation</span><i class="icon-arrow-right"></i>
             </a>
           </form>
@@ -251,14 +448,19 @@
 
   {{-- ── TECH STACK ── --}}
   @if($techStackGroups->isNotEmpty())
-  <section class="td-section">
+  <section class="td-section td-stack-marquee-section">
     <div class="tf-container">
       <div class="td-label">Stack</div>
       <h2 class="td-heading">Technologies We Use</h2>
-      @foreach($techStackGroups as $group)
-      <div class="td-stack-group">
+    </div>
+
+    @foreach($techStackGroups as $group)
+    <div class="td-stack-group td-stack-group--marquee">
+      <div class="tf-container">
         <div class="td-stack-group-label">{{ $group->name }}</div>
-        <div class="td-stack-items">
+
+        {{-- Desktop: static flex-wrap grid --}}
+        <div class="td-stack-items td-stack-items-static">
           @foreach($group->activeItems as $item)
           <div class="td-stack-item">
             @if($item->icon)
@@ -271,8 +473,31 @@
           @endforeach
         </div>
       </div>
-      @endforeach
+
+      {{-- Mobile: marquee — items repeated 12× to fill the row --}}
+      <div class="tf-marquee td-stack-marquee">
+        <div class="marquee-wrapper">
+          <div class="initial-child-container">
+            @for($r = 0; $r < 12; $r++)
+              @foreach($group->activeItems as $item)
+              <div class="marquee-child-item">
+                <div class="td-stack-item">
+                  @if($item->icon)
+                  <img src="{{ asset('storage/'.$item->icon) }}" alt="{{ $item->name }}">
+                  @else
+                  <div class="td-stack-fallback">{{ strtoupper(substr($item->name,0,2)) }}</div>
+                  @endif
+                  <span class="td-stack-item-name">{{ $item->name }}</span>
+                </div>
+              </div>
+              @endforeach
+              @endfor
+          </div>
+        </div>
+      </div>
     </div>
+    @endforeach
+
   </section>
   @endif
 

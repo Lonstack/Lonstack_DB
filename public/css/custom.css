@@ -1868,6 +1868,206 @@
     }
 }
 
+/* ════════════════════════════════════════════════════════════
+   TECHNOLOGY PAGE — MOBILE SWIPERS & CTA FULL WIDTH
+════════════════════════════════════════════════════════════ */
+
+/* ── Desktop/mobile visibility defaults ── */
+.td-adv-mobile  { display: none; }
+.td-ben-mobile  { display: none; }
+.td-why-mobile  { display: none; }
+.td-proc-mobile { display: none; }
+
+/* ── Shared swiper controls: prev | ···dots··· | next ── */
+.td-swiper-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 28px;
+}
+/* Dots wrapper takes all remaining space */
+.td-swiper-controls .sw-pagination {
+    flex: 1;
+    position: relative;
+}
+/* Override Swiper's position:absolute — keep dots in the flex row */
+.td-swiper-controls .swiper-pagination {
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* ── Slide card styles ── */
+/* Advantages slide: override grid borders, add own border */
+.td-adv-card--slide {
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    border-radius: 16px;
+    height: 100%;
+}
+
+/* Benefits slide: no extra bottom gap needed — controls live outside */
+.td-ben-card--slide {
+    height: 100%;
+}
+
+/* Process slide: remove stagger margin */
+.td-proc-card--slide {
+    margin-top: 0 !important;
+    height: 100%;
+}
+
+/* Why choose us slide card */
+.td-why-item--slide {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 28px 24px;
+    height: 100%;
+}
+.td-why-item--slide .td-why-title {
+    font-size: 17px;
+}
+
+@media (max-width: 767px) {
+    /* Show mobile swipers, hide desktop grids */
+    .td-adv-desktop { display: none !important; }
+    .td-adv-mobile  { display: block; }
+
+    .td-ben-desktop { display: none !important; }
+    .td-ben-mobile  { display: block; }
+
+    .td-why-desktop { display: none !important; }
+    .td-why-mobile  { display: block; }
+
+    .td-proc-desktop { display: none !important; }
+    .td-proc-mobile  { display: block; }
+
+    /* ── Hero CTA: full width ── */
+    a.tech-hero__cta {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ── Advantages "Hire Us" CTA: full width ── */
+    a.td-cta-full-mobile {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ── Why Choose Us "Hire Us" CTA: full width ── */
+    .td-why-mobile a.tf-btn {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ── Contact form CTA: full width ── */
+    a.td-contact-cta {
+        display: flex !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   TECHNOLOGY PAGE — TECH STACK MARQUEE
+════════════════════════════════════════════════════════════ */
+
+.td-stack-marquee-section {
+    overflow: hidden;
+}
+
+.td-stack-group--marquee {
+    margin-bottom: 48px;
+}
+.td-stack-group--marquee:last-child {
+    margin-bottom: 0;
+}
+
+/* Group label inside container */
+.td-stack-group--marquee .td-stack-group-label {
+    margin-bottom: 20px;
+}
+
+/* ── DESKTOP (≥768px): hide marquee, show static grid ── */
+.td-stack-marquee { display: none; }
+.td-stack-items-static { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ── MOBILE (<768px): show marquee, hide static grid ── */
+@media (max-width: 767px) {
+    .td-stack-items-static { display: none !important; }
+    .td-stack-marquee { display: block; }
+
+    /* Edge fade masks */
+    .td-stack-marquee {
+        -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 8%,
+            #000 92%,
+            transparent 100%
+        );
+        mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            #000 8%,
+            #000 92%,
+            transparent 100%
+        );
+    }
+
+    /* Speed: 60s — smooth comfortable pace on mobile */
+    .td-stack-marquee .marquee-wrapper {
+        animation-duration: 130s !important;
+        gap: 0;
+        width: max-content;
+        flex-wrap: nowrap;
+    }
+
+    .td-stack-marquee .initial-child-container {
+        gap: 12px;
+        flex-wrap: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* Pause on tap-hold */
+    .td-stack-marquee .marquee-wrapper:hover {
+        animation-play-state: paused;
+    }
+
+    /* Chip style inside marquee */
+    .td-stack-marquee .td-stack-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.03);
+        white-space: nowrap;
+        flex-shrink: 0;
+        cursor: default;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   END TECHNOLOGY PAGE TECH STACK MARQUEE
+════════════════════════════════════════════════════════════ */
+
 /* ═══════════════════════════════════════════════════════════
    BLOG DETAIL PAGE — Fixes and improvements
 ═══════════════════════════════════════════════════════════ */
@@ -4244,6 +4444,17 @@
 }
 .svc-swiper-controls .sw-pagination {
     flex: 1;
+    position: relative;
+}
+/* Override Swiper's position:absolute — keep dots in the flex row */
+.svc-swiper-controls .swiper-pagination {
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 @media (max-width: 767px) {
