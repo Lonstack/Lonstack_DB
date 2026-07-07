@@ -12,148 +12,180 @@
                     <span class="dot"></span>
                     <a href="{{ route('portfolio') }}" class="link-breadkcum body-2 fw-7 split-text effect-right">Portfolio</a>
                     <span class="dot"></span>
-                    <span class="page-breadkcum body-2 fw-7 split-text effect-right">{{ $portfolio->title }}</span>
+                    <span class="page-breadkcum body-2 fw-7 split-text effect-right">{{ Str::limit($portfolio->title, 40) }}</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main-content -->
+    <!-- Main content -->
     <div class="main-content tf-spacing-2">
         <div class="tf-container">
-            <div class="wg-details wg-project-details tf-spacing-2">
 
-                {{-- Cover image --}}
-                <div class="image-blog img-1" style="overflow:hidden; border-radius:8px;">
-                    @if ($portfolio->cover_image)
-                        <img src="{{ asset('storage/' . $portfolio->cover_image) }}"
-                             data-src="{{ asset('storage/' . $portfolio->cover_image) }}"
-                             alt="{{ $portfolio->title }}" class="lazyload"
-                             style="width:100%; height:680px; object-fit:cover; display:block;">
-                    @else
-                        <img src="{{ asset('image/section/project-details-1.jpg') }}"
-                             data-src="{{ asset('image/section/project-details-1.jpg') }}"
-                             alt="{{ $portfolio->title }}" class="lazyload"
-                             style="width:100%; height:680px; object-fit:cover; display:block;">
+            {{-- ── Cover image ── --}}
+            <div style="overflow:hidden; border-radius:12px; margin-bottom:50px;">
+                @if ($portfolio->cover_image)
+                    <img src="{{ asset('storage/' . $portfolio->cover_image) }}"
+                         alt="{{ $portfolio->title }}"
+                         style="width:100%; max-height:480px; object-fit:cover; display:block;">
+                @else
+                    <img src="{{ asset('image/section/project-details-1.jpg') }}"
+                         alt="{{ $portfolio->title }}"
+                         style="width:100%; max-height:480px; object-fit:cover; display:block;">
+                @endif
+            </div>
+
+            {{-- ── Two-column: description + metadata ── --}}
+            <div class="row rg-40 mb-60">
+
+                {{-- Left: title + description + tags --}}
+                <div class="col-lg-8">
+                    <h2 class="title fw-6 mb-25" style="font-size:clamp(22px,3vw,34px); line-height:1.3;">
+                        {{ $portfolio->title }}
+                    </h2>
+
+                    @if ($portfolio->description)
+                    <div class="desc lh-30 mb-30" style="color:rgba(255,255,255,0.75); font-size:15px;">
+                        {!! $portfolio->description !!}
+                    </div>
                     @endif
-                </div>
 
-                <div class="details-content flex justify-content-between g-30 rg-50">
-
-                    {{-- Left: description --}}
-                    <div class="left" style="flex:1; min-width:0; overflow:hidden;">
-                        <h3 class="title">{{ $portfolio->title }}</h3>
-
-                        @if ($portfolio->description)
-                        <div class="desc">
-                            <div class="lh-30" style="overflow-wrap:break-word; word-break:break-word;">
-                                {!! $portfolio->description !!}
-                            </div>
-                        </div>
-                        @endif
-
-                        {{-- Tags as benefit-style list --}}
-                        @if ($portfolio->tags && count($portfolio->tags))
-                        <div class="cols mt-30">
-                            <div class="list-benefit">
-                                @foreach ($portfolio->tags as $tag)
-                                <div class="benefit-item">
-                                    <i class="icon-check"></i>
-                                    <span class="lh-30 body-2">{{ $tag }}</span>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-                    </div>
-
-                    {{-- Right: metadata sidebar --}}
-                    <div class="right" style="flex-shrink:0; width:280px;">
-                        <div class="box-info">
-                            @if ($portfolio->service)
-                            <div class="info-item">
-                                <div class="sub-title fw-5">Service</div>
-                                <h5 class="title-info fw-5">{{ $portfolio->service->name }}</h5>
-                            </div>
-                            @endif
-
-                            @if ($portfolio->client)
-                            <div class="info-item">
-                                <div class="sub-title fw-5">Client</div>
-                                <h5 class="title-info fw-5">{{ $portfolio->client }}</h5>
-                            </div>
-                            @endif
-
-                            @if ($portfolio->location)
-                            <div class="info-item">
-                                <div class="sub-title fw-5">Location</div>
-                                <h5 class="title-info fw-5">{{ $portfolio->location }}</h5>
-                            </div>
-                            @endif
-
-                            @if ($portfolio->published_at)
-                            <div class="info-item">
-                                <div class="sub-title fw-5">Published</div>
-                                <h5 class="title-info fw-5">{{ $portfolio->published_at->format('F d, Y') }}</h5>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Gallery images --}}
-                @if ($portfolio->gallery && count($portfolio->gallery))
-                <div class="mb-50" style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
-                    @foreach ($portfolio->gallery as $image)
-                    <div style="overflow:hidden; border-radius:6px;">
-                        <img src="{{ asset('storage/' . $image) }}"
-                             data-src="{{ asset('storage/' . $image) }}"
-                             alt="{{ $portfolio->title }}" class="lazyload"
-                             style="width:100%; height:280px; object-fit:cover; display:block;">
-                    </div>
-                    @endforeach
-                </div>
-                @endif
-
-                {{-- Project summary --}}
-                @if ($portfolio->summary)
-                <div class="details-content content-2">
-                    <h3 class="title mb-25">Project Summary</h3>
-                    <div class="desc">
-                        <div class="lh-30" style="overflow-wrap:break-word; word-break:break-word;">
-                            {!! $portfolio->summary !!}
-                        </div>
-                    </div>
-                </div>
-                @endif
-
-                {{-- Tags + share --}}
-                <div class="tag-social flex justify-content-between align-items-center flex-wrap g-20">
                     @if ($portfolio->tags && count($portfolio->tags))
-                    <div class="left tags flex g-20 align-items-center">
-                        <span class="fw-5">Tags</span>
-                        <div class="tabs-list">
-                            @foreach ($portfolio->tags as $tag)
-                            <a href="{{ route('portfolio') }}" class="tabs-item fw-5">{{ $tag }}</a>
-                            @endforeach
-                        </div>
+                    <div class="d-flex flex-wrap gap-2 mt-20">
+                        @foreach ($portfolio->tags as $tag)
+                        <span style="padding:6px 16px; border-radius:50px; font-size:13px; font-weight:600;
+                                     background:rgba(67,186,255,0.1); border:1px solid rgba(67,186,255,0.25);
+                                     color:var(--primary);">
+                            {{ $tag }}
+                        </span>
+                        @endforeach
                     </div>
                     @endif
-                    <div class="right social flex g-20 align-items-center">
-                        <span class="fw-5">Share</span>
-                        <ul class="post-social style-radius-50 g-10">
-                            <li><a href="#" class="icon-social"><i class="icon-fb"></i></a></li>
-                            <li><a href="#" class="icon-social"><i class="icon-X"></i></a></li>
-                            <li><a href="#" class="icon-social"><i class="icon-linkedin"></i></a></li>
-                            <li><a href="#" class="icon-social"><i class="icon-instagram"></i></a></li>
-                        </ul>
+                </div>
+
+                {{-- Right: metadata card --}}
+                <div class="col-lg-4">
+                    <div style="border:1px solid var(--stroke-2); border-radius:16px; padding:32px 28px;">
+                        @if ($portfolio->service)
+                        <div style="padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid var(--stroke-2);">
+                            <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+                                        color:var(--primary); margin-bottom:6px;">Service</div>
+                            <div style="font-size:15px; font-weight:600;">{{ $portfolio->service->name }}</div>
+                        </div>
+                        @endif
+
+                        @if ($portfolio->client)
+                        <div style="padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid var(--stroke-2);">
+                            <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+                                        color:var(--primary); margin-bottom:6px;">Client</div>
+                            <div style="font-size:15px; font-weight:600;">{{ $portfolio->client }}</div>
+                        </div>
+                        @endif
+
+                        @if ($portfolio->location)
+                        <div style="padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid var(--stroke-2);">
+                            <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+                                        color:var(--primary); margin-bottom:6px;">Location</div>
+                            <div style="font-size:15px; font-weight:600;">{{ $portfolio->location }}</div>
+                        </div>
+                        @endif
+
+                        @if ($portfolio->published_at)
+                        <div>
+                            <div style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+                                        color:var(--primary); margin-bottom:6px;">Published</div>
+                            <div style="font-size:15px; font-weight:600;">{{ $portfolio->published_at->format('F d, Y') }}</div>
+                        </div>
+                        @endif
                     </div>
                 </div>
 
             </div>
+
+            {{-- ── Gallery images ── --}}
+            @if ($portfolio->gallery && count($portfolio->gallery))
+            <div class="mb-60">
+                <div class="sub-title body-2 fw-7 mb-30 title-animation"
+                     style="letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,0.4);">
+                    Project Gallery
+                </div>
+
+                {{-- Desktop: clean grid --}}
+                <div class="d-none d-md-flex" style="gap:16px;">
+                    @foreach ($portfolio->gallery as $image)
+                    <div style="flex:1; overflow:hidden; border-radius:10px;">
+                        <img src="{{ asset('storage/' . $image) }}"
+                             alt="{{ $portfolio->title }}"
+                             style="width:100%; height:260px; object-fit:cover; display:block;
+                                    transition:transform .4s;"
+                             onmouseover="this.style.transform='scale(1.05)'"
+                             onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                    @endforeach
+                </div>
+
+                {{-- Mobile: swiper --}}
+                <div class="d-md-none">
+                    <div class="swiper tf-swiper"
+                         data-swiper='{
+                            "slidesPerView": 1.15,
+                            "spaceBetween": 12,
+                            "speed": 600,
+                            "pagination": { "el": ".gallery-pagination", "clickable": true }
+                         }'>
+                        <div class="swiper-wrapper">
+                            @foreach ($portfolio->gallery as $image)
+                            <div class="swiper-slide">
+                                <div style="overflow:hidden; border-radius:10px;">
+                                    <img src="{{ asset('storage/' . $image) }}"
+                                         alt="{{ $portfolio->title }}"
+                                         style="width:100%; height:220px; object-fit:cover; display:block;">
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="gallery-pagination sw-pagination mt-20 justify-content-center"></div>
+                </div>
+            </div>
+            @endif
+
+            {{-- ── Project summary ── --}}
+            @if ($portfolio->summary)
+            <div class="mb-60">
+                <h3 class="title fw-6 mb-25" style="font-size:clamp(20px,2.5vw,28px);">Project Summary</h3>
+                <div class="desc lh-30" style="color:rgba(255,255,255,0.75); font-size:15px;">
+                    {!! $portfolio->summary !!}
+                </div>
+            </div>
+            @endif
+
+            {{-- ── Share row ── --}}
+            @if ($portfolio->tags && count($portfolio->tags))
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+                        gap:20px; padding:28px 0; border-top:1px solid var(--stroke-2);
+                        border-bottom:1px solid var(--stroke-2); margin-bottom:60px;">
+                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                    <span class="body-2 fw-5">Tags</span>
+                    @foreach ($portfolio->tags as $tag)
+                    <a href="{{ route('portfolio') }}" class="tabs-item fw-5">{{ $tag }}</a>
+                    @endforeach
+                </div>
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span class="body-2 fw-5">Share</span>
+                    <ul class="post-social style-radius-50 g-10">
+                        <li><a href="#" class="icon-social"><i class="icon-fb"></i></a></li>
+                        <li><a href="#" class="icon-social"><i class="icon-X"></i></a></li>
+                        <li><a href="#" class="icon-social"><i class="icon-linkedin"></i></a></li>
+                        <li><a href="#" class="icon-social"><i class="icon-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            @endif
+
         </div>
 
-        {{-- Previous / Next navigation --}}
+        {{-- ── Prev / Next navigation ── --}}
         @if ($prev || $next)
         <div class="next-prev-details tf-spacing-2">
             <div class="tf-container">
@@ -170,7 +202,6 @@
                             @if ($prev->cover_image)
                             <a href="{{ route('portfolio-details', $prev->slug) }}" class="image">
                                 <img src="{{ asset('storage/' . $prev->cover_image) }}"
-                                     data-src="{{ asset('storage/' . $prev->cover_image) }}"
                                      alt="{{ $prev->title }}" class="lazyload">
                             </a>
                             @endif
@@ -190,7 +221,6 @@
                             @if ($next->cover_image)
                             <a href="{{ route('portfolio-details', $next->slug) }}" class="image">
                                 <img src="{{ asset('storage/' . $next->cover_image) }}"
-                                     data-src="{{ asset('storage/' . $next->cover_image) }}"
                                      alt="{{ $next->title }}" class="lazyload">
                             </a>
                             @endif
@@ -203,9 +233,8 @@
         @endif
 
     </div>
-    <!-- /.main-content -->
 
-    {{-- Related projects — same service, excluding current --}}
+    {{-- ── Related projects ── --}}
     @if ($related->isNotEmpty())
     <section class="section-project tf-spacing-2">
         <div class="tf-container">
@@ -219,7 +248,6 @@
         </div>
 
         <div class="tf-container" style="position:relative;">
-            {{-- Prev button --}}
             <a class="arrow-btn style-border w-50 arrow-prev related-prev"
                style="position:absolute; left:-25px; top:50%; transform:translateY(-50%); z-index:10; cursor:pointer;">
                 <i class="icon-arrow-left2"></i>
@@ -240,17 +268,15 @@
                     <div class="swiper-slide">
                         <div class="project-gird-item project-item">
                             <a href="{{ route('portfolio-details', $item->slug) }}" class="image"
-                               style="display:block; overflow:hidden; border-radius:6px;">
+                               style="display:block; overflow:hidden; border-radius:8px;">
                                 @if ($item->cover_image)
                                     <img src="{{ asset('storage/' . $item->cover_image) }}"
-                                         data-src="{{ asset('storage/' . $item->cover_image) }}"
                                          alt="{{ $item->title }}" class="lazyload"
-                                         style="width:100%; height:320px; object-fit:cover; display:block;">
+                                         style="width:100%; height:280px; object-fit:cover; display:block;">
                                 @else
                                     <img src="{{ asset('image/project-item/project-item-2.jpg') }}"
-                                         data-src="{{ asset('image/project-item/project-item-2.jpg') }}"
                                          alt="{{ $item->title }}" class="lazyload"
-                                         style="width:100%; height:320px; object-fit:cover; display:block;">
+                                         style="width:100%; height:280px; object-fit:cover; display:block;">
                                 @endif
                             </a>
                             <div class="item-content">
@@ -265,7 +291,6 @@
                 </div>
             </div>
 
-            {{-- Next button --}}
             <a class="arrow-btn style-border w-50 arrow-next related-next"
                style="position:absolute; right:-25px; top:50%; transform:translateY(-50%); z-index:10; cursor:pointer;">
                 <i class="icon-arrow-right2"></i>
