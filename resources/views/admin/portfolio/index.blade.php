@@ -259,6 +259,31 @@ document.addEventListener('DOMContentLoaded', function () {
     const addGalleryDT  = new DataTransfer();
     const editGalleryDT = new DataTransfer();
 
+    // ── Reset Add modal fully every time it opens ─────────────────────────────
+    document.getElementById('add_portfolio').addEventListener('show.bs.modal', function () {
+        const form = document.getElementById('add-form');
+        form.reset();
+
+        // Clear Quill editors
+        addDescQuill.setContents([]);
+        addSumQuill.setContents([]);
+
+        // Clear cover preview
+        const coverPreview = document.getElementById('add-cover-preview');
+        const coverImg     = document.getElementById('add-cover-img');
+        if (coverPreview) coverPreview.style.display = 'none';
+        if (coverImg)     coverImg.src = '';
+
+        // Clear gallery preview and DataTransfer
+        const galleryPreview = document.getElementById('add-gallery-preview');
+        if (galleryPreview) galleryPreview.innerHTML = '';
+        addGalleryDT.items.clear();
+
+        // Reset is_active to checked by default
+        const isActiveEl = document.getElementById('add-is-active');
+        if (isActiveEl) isActiveEl.checked = true;
+    });
+
     const GALLERY_MAX = 3;
 
     function addGalleryFile(file, previewId, dt, existingCountFn) {

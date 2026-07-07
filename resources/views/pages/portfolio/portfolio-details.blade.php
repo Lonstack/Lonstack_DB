@@ -22,7 +22,7 @@
     <div class="main-content tf-spacing-2">
         <div class="tf-container">
 
-            {{-- ── Cover image ── --}}
+            {{-- Cover image --}}
             <div style="overflow:hidden; border-radius:12px; margin-bottom:50px;">
                 @if ($portfolio->cover_image)
                     <img src="{{ asset('storage/' . $portfolio->cover_image) }}"
@@ -35,7 +35,7 @@
                 @endif
             </div>
 
-            {{-- ── Two-column: description + metadata ── --}}
+            {{-- Two-column: description + metadata --}}
             <div class="row rg-40 mb-60">
 
                 {{-- Left: title + description + tags --}}
@@ -102,7 +102,7 @@
 
             </div>
 
-            {{-- ── Gallery images ── --}}
+            {{-- Gallery images --}}
             @if ($portfolio->gallery && count($portfolio->gallery))
             <div class="mb-60">
                 <div class="sub-title body-2 fw-7 mb-30 title-animation"
@@ -110,7 +110,7 @@
                     Project Gallery
                 </div>
 
-                {{-- Desktop: clean grid --}}
+                {{-- Desktop: flex row --}}
                 <div class="d-none d-md-flex" style="gap:16px;">
                     @foreach ($portfolio->gallery as $image)
                     <div style="flex:1; overflow:hidden; border-radius:10px;">
@@ -150,7 +150,7 @@
             </div>
             @endif
 
-            {{-- ── Project summary ── --}}
+            {{-- Project summary --}}
             @if ($portfolio->summary)
             <div class="mb-60">
                 <h3 class="title fw-6 mb-25" style="font-size:clamp(20px,2.5vw,28px);">Project Summary</h3>
@@ -160,19 +160,20 @@
             </div>
             @endif
 
-            {{-- ── Share row ── --}}
-            @if ($portfolio->tags && count($portfolio->tags))
-            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
-                        gap:20px; padding:28px 0; border-top:1px solid var(--stroke-2);
-                        border-bottom:1px solid var(--stroke-2); margin-bottom:60px;">
-                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-                    <span class="body-2 fw-5">Tags</span>
-                    @foreach ($portfolio->tags as $tag)
-                    <a href="{{ route('portfolio') }}" class="tabs-item fw-5">{{ $tag }}</a>
-                    @endforeach
+            {{-- Tags + Share row --}}
+            <div class="tag-social flex justify-content-between align-items-center flex-wrap g-20 mb-40">
+                @if ($portfolio->tags && count($portfolio->tags))
+                <div class="left tags flex g-20 align-items-center">
+                    <span class="fw-5">Tags</span>
+                    <div class="tabs-list">
+                        @foreach ($portfolio->tags as $tag)
+                        <a href="{{ route('portfolio') }}" class="tabs-item fw-5">{{ $tag }}</a>
+                        @endforeach
+                    </div>
                 </div>
-                <div style="display:flex; align-items:center; gap:12px;">
-                    <span class="body-2 fw-5">Share</span>
+                @endif
+                <div class="right social flex g-20 align-items-center">
+                    <span class="fw-5">Share</span>
                     <ul class="post-social style-radius-50 g-10">
                         <li><a href="#" class="icon-social"><i class="icon-fb"></i></a></li>
                         <li><a href="#" class="icon-social"><i class="icon-X"></i></a></li>
@@ -181,60 +182,11 @@
                     </ul>
                 </div>
             </div>
-            @endif
 
         </div>
-
-        {{-- ── Prev / Next navigation ── --}}
-        @if ($prev || $next)
-        <div class="next-prev-details tf-spacing-2">
-            <div class="tf-container">
-                <div class="row rg-50">
-                    @if ($prev)
-                    <div class="col-sm-6">
-                        <div class="prev-details next-prev-item">
-                            <a href="{{ route('portfolio-details', $prev->slug) }}" class="link">
-                                <i class="icon-arrow-left"></i> Previous
-                            </a>
-                            <h4 class="title">
-                                <a href="{{ route('portfolio-details', $prev->slug) }}">{{ $prev->title }}</a>
-                            </h4>
-                            @if ($prev->cover_image)
-                            <a href="{{ route('portfolio-details', $prev->slug) }}" class="image">
-                                <img src="{{ asset('storage/' . $prev->cover_image) }}"
-                                     alt="{{ $prev->title }}" class="lazyload">
-                            </a>
-                            @endif
-                        </div>
-                    </div>
-                    @endif
-
-                    @if ($next)
-                    <div class="col-sm-6">
-                        <div class="next-details next-prev-item">
-                            <a href="{{ route('portfolio-details', $next->slug) }}" class="link">
-                                Next <i class="icon-arrow-right"></i>
-                            </a>
-                            <h4 class="title">
-                                <a href="{{ route('portfolio-details', $next->slug) }}">{{ $next->title }}</a>
-                            </h4>
-                            @if ($next->cover_image)
-                            <a href="{{ route('portfolio-details', $next->slug) }}" class="image">
-                                <img src="{{ asset('storage/' . $next->cover_image) }}"
-                                     alt="{{ $next->title }}" class="lazyload">
-                            </a>
-                            @endif
-                        </div>
-                    </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-        @endif
-
     </div>
 
-    {{-- ── Related projects ── --}}
+    {{-- Related projects — same service only --}}
     @if ($related->isNotEmpty())
     <section class="section-project tf-spacing-2">
         <div class="tf-container">
@@ -248,19 +200,22 @@
         </div>
 
         <div class="tf-container" style="position:relative;">
-            <a class="arrow-btn style-border w-50 arrow-prev related-prev"
-               style="position:absolute; left:-25px; top:50%; transform:translateY(-50%); z-index:10; cursor:pointer;">
+
+            <a class="arrow-btn style-border w-50 arrow-prev related-prev d-none d-md-flex"
+               style="position:absolute; left:-25px; top:45%; transform:translateY(-50%); z-index:10; cursor:pointer;">
                 <i class="icon-arrow-left2"></i>
             </a>
 
-            <div class="swiper tf-swiper sw-related-project"
+            <div class="swiper tf-swiper"
                  data-swiper='{
                     "slidesPerView": 1,
-                    "spaceBetween": 30,
-                    "speed": 800,
+                    "spaceBetween": 20,
+                    "speed": 700,
                     "navigation": { "clickable": true, "nextEl": ".related-next", "prevEl": ".related-prev" },
+                    "pagination": { "el": ".related-pagination", "clickable": true },
                     "breakpoints": {
-                        "768": { "slidesPerView": 2, "slidesPerGroup": 1 }
+                        "640":  { "slidesPerView": 2, "spaceBetween": 24 },
+                        "1200": { "slidesPerView": 3, "spaceBetween": 30 }
                     }
                  }'>
                 <div class="swiper-wrapper">
@@ -272,11 +227,11 @@
                                 @if ($item->cover_image)
                                     <img src="{{ asset('storage/' . $item->cover_image) }}"
                                          alt="{{ $item->title }}" class="lazyload"
-                                         style="width:100%; height:280px; object-fit:cover; display:block;">
+                                         style="width:100%; height:260px; object-fit:cover; display:block;">
                                 @else
                                     <img src="{{ asset('image/project-item/project-item-2.jpg') }}"
                                          alt="{{ $item->title }}" class="lazyload"
-                                         style="width:100%; height:280px; object-fit:cover; display:block;">
+                                         style="width:100%; height:260px; object-fit:cover; display:block;">
                                 @endif
                             </a>
                             <div class="item-content">
@@ -291,11 +246,14 @@
                 </div>
             </div>
 
-            <a class="arrow-btn style-border w-50 arrow-next related-next"
-               style="position:absolute; right:-25px; top:50%; transform:translateY(-50%); z-index:10; cursor:pointer;">
+            <a class="arrow-btn style-border w-50 arrow-next related-next d-none d-md-flex"
+               style="position:absolute; right:-25px; top:45%; transform:translateY(-50%); z-index:10; cursor:pointer;">
                 <i class="icon-arrow-right2"></i>
             </a>
         </div>
+
+        {{-- Pagination dots on mobile --}}
+        <div class="related-pagination sw-pagination mt-30 justify-content-center d-md-none"></div>
     </section>
     @endif
 
