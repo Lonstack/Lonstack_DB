@@ -4689,6 +4689,8 @@ a.mapboxgl-ctrl-logo {
 }
 .project-item.project-gird-item .item-content .title-project {
     margin-bottom: 5px;
+
+    
 }
 .project-item.project-gird-item:hover .image::after {
     height: 100%;

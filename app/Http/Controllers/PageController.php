@@ -158,14 +158,16 @@ class PageController extends Controller
         ? asset('storage/' . $p->cover_image)
         : asset('image/project-item/project-item-2.jpg');
 
+      $badge = $p->service ? '<span class="related-project-badge">' . e($p->service->name) . '</span>' : '';
+
       $html .= '<div class="col-sm-6 portfolio-card">'
         . '<div class="project-gird-item project-item">'
-        . '<a href="' . route('portfolio-details', $p->slug) . '" class="image" style="display:block;overflow:hidden;">'
-        . '<img src="' . $cover . '" data-src="' . $cover . '" alt="' . e($p->title) . '" class="lazyload" style="width:100%;height:320px;object-fit:cover;display:block;">'
+        . '<a href="' . route('portfolio-details', $p->slug) . '" class="related-project-img-wrap">'
+        . '<img src="' . $cover . '" data-src="' . $cover . '" alt="' . e($p->title) . '" class="lazyload related-project-img" style="height:320px;">'
+        . $badge
         . '</a>'
-        . '<div class="item-content">'
-        . '<div class="sub-title body-2 fw-7">' . e($p->service->name ?? '') . '</div>'
-        . '<h3 class="title-project"><a href="' . route('portfolio-details', $p->slug) . '">' . e($p->title) . '</a></h3>'
+        . '<div class="related-project-content item-content">'
+        . '<h3 class="title-project related-project-title"><a href="' . route('portfolio-details', $p->slug) . '">' . e($p->title) . '</a></h3>'
         . '</div>'
         . '</div>'
         . '</div>';

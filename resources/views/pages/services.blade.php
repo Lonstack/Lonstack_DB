@@ -5,7 +5,7 @@
   <div class="tf-container">
     <div class="page-title-content text-center">
       <h1 class="title split-text effect-right">
-        Services
+        SERVICES
       </h1>
       <div class="breadkcum">
         <a href="{{ route('home') }}" class="link-breadkcum body-2 fw-7 split-text effect-right">Home</a>
