@@ -38,7 +38,7 @@
                             <div class="title body-2 fw-7 title-animation">Main Office</div>
                             <div class="contact-item location-item align-items-start title-animation">
                                 <i class="icon-location-dot"></i>
-                                <a href="javascript:void(0)" class="lh-30">Plot A/151 Iyiagu Housing Estate,
+                                <a href="javascript:void(0)" class="lh-30">6 Ossy Gambia Street Okpuno,
                                     <br>Awka, Anambra State. Nigeria</a>
                             </div>
                             <div class="contact-item title-animation">
