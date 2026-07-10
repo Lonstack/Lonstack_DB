@@ -53,7 +53,7 @@
   </section>
 
   {{-- ── Marquee ── --}}
-  <div class="section-top" style="overflow:hidden; border-top:1px solid var(--stroke-2); border-bottom:1px solid var(--stroke-2);">
+  <div class="section-top" style="overflow:hidden; border-top:1px solid var(--stroke-2); border-bottom:1px solid var(--stroke-2); margin-bottom:70px;">
     <div class="tf-marquee">
       <div class="marquee-wrapper">
         <div class="initial-child-container">
@@ -69,7 +69,7 @@
   </div>
 
   {{-- ── Services by category ── --}}
-  <section class="tf-spacing-3 mt-10">
+  <section class="tf-spacing-3">
     <div class="tf-container">
 
       @php
