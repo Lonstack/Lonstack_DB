@@ -69,7 +69,7 @@
   </div>
 
   {{-- ── Services by category ── --}}
-  <section class="tf-spacing-3">
+  <section class="tf-spacing-3 mt-10">
     <div class="tf-container">
 
       @php
@@ -109,110 +109,70 @@
 
         {{-- All tab --}}
         <div class="tab-pane active show" id="tab-all" role="tabpanel">
-          <div class="row rg-30">
-            @foreach ($categories as $category)
-              @foreach ($category->activeServices as $service)
-              <div class="col-lg-4 col-md-6">
-                <div class="services-item-card" style="
-                    border:1px solid var(--stroke-2); border-radius:16px;
-                    padding:36px 30px; height:100%; display:flex; flex-direction:column;
-                    transition:border-color .3s, background .3s; position:relative; overflow:hidden;"
-                    onmouseover="this.style.borderColor='rgba(67,186,255,0.35)'; this.style.background='rgba(67,186,255,0.03)'"
-                    onmouseout="this.style.borderColor='var(--stroke-2)'; this.style.background=''">
+          @php $allFlat = $categories->flatMap(fn($c) => $c->activeServices->map(fn($s) => ['service' => $s, 'category' => $c])); @endphp
 
-                  {{-- Badge --}}
-                  @if ($service->badge)
-                  <span style="position:absolute; top:20px; right:20px; font-size:11px; font-weight:700;
-                                padding:3px 10px; border-radius:20px;
-                                background:{{ $service->badge === 'hot' ? 'rgba(245,158,11,0.15)' : 'rgba(72,187,120,0.15)' }};
-                                color:{{ $service->badge === 'hot' ? '#f59e0b' : '#48bb78' }};">
-                    {{ $service->badge_label }}
-                  </span>
-                  @endif
-
-                  {{-- Icon --}}
-                  <div style="width:52px; height:52px; border-radius:12px;
-                              background:rgba(67,186,255,0.1); display:flex;
-                              align-items:center; justify-content:center; margin-bottom:22px; flex-shrink:0;">
-                    <i class="{{ $category->icon ?? 'icon-custom-software' }}"
-                       style="font-size:22px; color:var(--primary);"></i>
-                  </div>
-
-                  {{-- Title --}}
-                  <h5 class="fw-6 mb-14" style="font-size:18px; line-height:1.4;">
-                    <a href="{{ route('services.show', $service->slug) }}"
-                       style="color:inherit; text-decoration:none;">
-                      {{ $service->name }}
-                    </a>
-                  </h5>
-
-                  {{-- Description --}}
-                  @if ($service->short_description)
-                  <p class="lh-30 mb-25" style="color:rgba(255,255,255,0.55); font-size:14px; flex:1;">
-                    {{ Str::limit($service->short_description, 110) }}
-                  </p>
-                  @endif
-
-                  {{-- CTA --}}
-                  <a href="{{ route('services.show', $service->slug) }}" class="tf-btn-readmore mt-auto">
-                    <span class="plus">+</span>
-                    <span class="text">Learn More</span>
-                  </a>
-                </div>
-              </div>
-              @endforeach
+          {{-- Desktop grid --}}
+          <div class="row rg-30 d-none d-md-flex">
+            @foreach ($allFlat as $item)
+            <div class="col-lg-4 col-md-6">
+              @include('pages.services._card', ['service' => $item['service'], 'category' => $item['category']])
+            </div>
             @endforeach
+          </div>
+
+          {{-- Mobile: 5 cards per swiper page --}}
+          <div class="d-md-none">
+            <div class="swiper tf-swiper sw-services-mob-all"
+                 data-swiper='{"slidesPerView":1,"spaceBetween":0,"speed":500,"pagination":{"el":".svc-pag-all","clickable":true}}'>
+              <div class="swiper-wrapper">
+                @foreach ($allFlat->chunk(5) as $chunk)
+                <div class="swiper-slide">
+                  <div style="display:flex; flex-direction:column; gap:16px;">
+                    @foreach ($chunk as $item)
+                      @include('pages.services._card', ['service' => $item['service'], 'category' => $item['category']])
+                    @endforeach
+                  </div>
+                </div>
+                @endforeach
+              </div>
+            </div>
+            <div class="svc-pag-all sw-pagination mt-25 justify-content-center"></div>
           </div>
         </div>
 
         {{-- Per-category tabs --}}
         @foreach ($categories->filter(fn($c) => $c->activeServices->isNotEmpty()) as $category)
-        <div class="tab-pane" id="tab-{{ $category->id }}" role="tabpanel">
-          <div class="row rg-30">
+        @php $catId = $category->id; @endphp
+        <div class="tab-pane" id="tab-{{ $catId }}" role="tabpanel">
+
+          {{-- Desktop grid --}}
+          <div class="row rg-30 d-none d-md-flex">
             @foreach ($category->activeServices as $service)
             <div class="col-lg-4 col-md-6">
-              <div style="border:1px solid var(--stroke-2); border-radius:16px;
-                          padding:36px 30px; height:100%; display:flex; flex-direction:column;
-                          transition:border-color .3s, background .3s; position:relative; overflow:hidden;"
-                   onmouseover="this.style.borderColor='rgba(67,186,255,0.35)'; this.style.background='rgba(67,186,255,0.03)'"
-                   onmouseout="this.style.borderColor='var(--stroke-2)'; this.style.background=''">
-
-                @if ($service->badge)
-                <span style="position:absolute; top:20px; right:20px; font-size:11px; font-weight:700;
-                              padding:3px 10px; border-radius:20px;
-                              background:{{ $service->badge === 'hot' ? 'rgba(245,158,11,0.15)' : 'rgba(72,187,120,0.15)' }};
-                              color:{{ $service->badge === 'hot' ? '#f59e0b' : '#48bb78' }};">
-                  {{ $service->badge_label }}
-                </span>
-                @endif
-
-                <div style="width:52px; height:52px; border-radius:12px;
-                            background:rgba(67,186,255,0.1); display:flex;
-                            align-items:center; justify-content:center; margin-bottom:22px; flex-shrink:0;">
-                  <i class="{{ $category->icon ?? 'icon-custom-software' }}"
-                     style="font-size:22px; color:var(--primary);"></i>
-                </div>
-
-                <h5 class="fw-6 mb-14" style="font-size:18px; line-height:1.4;">
-                  <a href="{{ route('services.show', $service->slug) }}" style="color:inherit; text-decoration:none;">
-                    {{ $service->name }}
-                  </a>
-                </h5>
-
-                @if ($service->short_description)
-                <p class="lh-30 mb-25" style="color:rgba(255,255,255,0.55); font-size:14px; flex:1;">
-                  {{ Str::limit($service->short_description, 110) }}
-                </p>
-                @endif
-
-                <a href="{{ route('services.show', $service->slug) }}" class="tf-btn-readmore mt-auto">
-                  <span class="plus">+</span>
-                  <span class="text">Learn More</span>
-                </a>
-              </div>
+              @include('pages.services._card', ['service' => $service, 'category' => $category])
             </div>
             @endforeach
           </div>
+
+          {{-- Mobile: 5 cards per swiper page --}}
+          <div class="d-md-none">
+            <div class="swiper tf-swiper sw-services-mob-{{ $catId }}"
+                 data-swiper='{"slidesPerView":1,"spaceBetween":0,"speed":500,"pagination":{"el":".svc-pag-{{ $catId }}","clickable":true}}'>
+              <div class="swiper-wrapper">
+                @foreach ($category->activeServices->chunk(5) as $chunk)
+                <div class="swiper-slide">
+                  <div style="display:flex; flex-direction:column; gap:16px;">
+                    @foreach ($chunk as $service)
+                      @include('pages.services._card', ['service' => $service, 'category' => $category])
+                    @endforeach
+                  </div>
+                </div>
+                @endforeach
+              </div>
+            </div>
+            <div class="svc-pag-{{ $catId }} sw-pagination mt-25 justify-content-center"></div>
+          </div>
+
         </div>
         @endforeach
 
