@@ -68,80 +68,23 @@
           </form>
 
           <div class="sib-form mb-23">
-            <div id="sib-form-container" class="sib-form-container">
-              <div id="sib-container" class="sib-container--large sib-container--vertical">
-                <form id="sib-form" method="POST" action="" data-type="subscription">
-                  <div style="display: none;">
-                    <div class="sib-form-block">
-                      <p></p>
-                    </div>
-                  </div>
-                  <div style="display: none;">
-                    <div class="sib-form-block">
-                      <div class="sib-text-form-block">
-                        <p></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div style="display: none;">
-                    <div class="sib-optin sib-form-block">
-                      <div class="form__entry entry_mcq">
-                        <div class="form__label-row">
-                          <div class="entry__choice">
-                            <label>
-                              <input type="checkbox" class="input_replaced" value="1"
-                                id="OPT_IN" name="OPT_IN" />
-                              <span class="checkbox checkbox_tick_positive"></span>
-                              <span>
-                                <p></p>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                        <label class="entry__error entry__error--primary"></label>
-                        <label class="entry__specification"></label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-grow-1">
-                    <div class="sib-input sib-form-block">
-                      <div class="form__entry entry_block">
-                        <div class="form__label-row">
-                          <label class="entry__label" for="EMAIL"></label>
-                          <div class="entry__field">
-                            <i class="icon-email"></i>
-                            <input class="input" type="text" id="EMAIL"
-                              name="EMAIL" autocomplete="off"
-                              placeholder="Email Address" data-required="true"
-                              required />
-                          </div>
-                        </div>
-                        <label class="entry__error entry__error--primary"></label>
-                        <label class="entry__specification"></label>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="sib-form-block">
-                      <button
-                        class="sib-form-block__button sib-form-block__button-with-loader tf-btn hover-bg-white flex-grow-1"
-                        form="sib-form" type="submit">
-                        <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon"
-                          viewBox="0 0 512 512">
-                          <path
-                            d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
-                        </svg>
-                        <span>Sign Up</span>
-                        <i class="icon-arrow-right"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <input type="text" name="email_address_check" value=""
-                    class="input--hidden">
-                  <input type="hidden" name="locale" value="en">
-                </form>
+            <form id="newsletter-form" class="newsletter-form mt-20">
+              @csrf
+              <div class="newsletter-form__row">
+                <div class="newsletter-form__field">
+                  <i class="icon-email newsletter-form__icon"></i>
+                  <input type="email" name="email" id="newsletter-email"
+                    placeholder="Email Address" required
+                    class="newsletter-form__input"
+                    autocomplete="email">
+                </div>
+                <button type="submit" class="tf-btn newsletter-form__btn" id="newsletter-btn">
+                  <span>Sign Up</span>
+                  <i class="icon-arrow-right"></i>
+                </button>
               </div>
-            </div>
+              <div id="newsletter-msg" class="newsletter-form__msg" style="display:none;"></div>
+            </form>
           </div>
 
           <p class="text">
@@ -215,3 +158,53 @@
     </div>
   </div>
 </footer>
+
+@push('scripts')
+<script>
+  document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const btn = document.getElementById('newsletter-btn');
+    const msg = document.getElementById('newsletter-msg');
+    const email = document.getElementById('newsletter-email').value;
+
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Sending...';
+    msg.style.display = 'none';
+
+    fetch('{{ route("newsletter.subscribe") }}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': '{{ csrf_token() }}',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email
+        }),
+      })
+      .then(r => r.json())
+      .then(data => {
+        msg.style.display = 'block';
+        if (data.success) {
+          msg.style.color = '#43baff';
+          msg.textContent = data.message;
+          form.reset();
+        } else {
+          msg.style.color = '#ff6b6b';
+          msg.textContent = data.message || 'Something went wrong. Please try again.';
+        }
+      })
+      .catch(() => {
+        msg.style.display = 'block';
+        msg.style.color = '#ff6b6b';
+        msg.textContent = 'Something went wrong. Please try again.';
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.querySelector('span').textContent = 'Sign Up';
+      });
+  });
+</script>
+@endpush

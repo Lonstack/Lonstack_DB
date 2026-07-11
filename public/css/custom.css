@@ -4624,31 +4624,96 @@
     overflow: hidden;
 }
 
-/* FAQ section — image auto-height matching left content */
-.svc-faq-visual {
-    position: sticky;
-    top: 100px;
-    width: 100%;
-    min-height: 300px;
-    border-radius: 16px;
-    overflow: hidden;
+/* Services page — intro description line height */
+.services-intro-desc,
+.services-intro-desc p {
+    line-height: 1.5;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.65);
 }
 
-/* ── Service FAQ: right-section fills column, SVG fills it fully ── */
-.section-company .section-company-inner .right-section {
+.services-intro-desc p + p {
+    margin-top: 14px;
+}
+
+/* ── Newsletter form — footer ── */
+.newsletter-form__row {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.newsletter-form__field {
+    position: relative;
+    flex: 1;
+}
+
+.newsletter-form__icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.45;
+    pointer-events: none;
+    font-size: 15px;
+    color: #fff;
+}
+
+.newsletter-form__input {
+    width: 100%;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0 14px 0 40px;
+    font-size: 14px;
+    color: #fff !important;
+    outline: none;
+    box-sizing: border-box;
+    /* Force white text even on autocomplete */
+    color-scheme: dark;
+    caret-color: #fff;
+    transition: border-color 0.2s;
+}
+
+.newsletter-form__input:focus {
+    border-color: rgba(67, 186, 255, 0.4);
+}
+
+/* Override browser autofill background & text color */
+.newsletter-form__input:-webkit-autofill,
+.newsletter-form__input:-webkit-autofill:hover,
+.newsletter-form__input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #fff !important;
+    -webkit-box-shadow: 0 0 0 1000px rgba(13, 31, 45, 0.95) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+    caret-color: #fff;
+}
+
+.newsletter-form__btn {
+    height: 52px;
     flex-shrink: 0;
-    min-width: 420px;
-    align-self: stretch;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
 }
-.svc-faq-visual {
-    width: 100%;
-    height: 100%;
-    min-height: 500px;
-    display: block;
-    border-radius: 0;
+
+.newsletter-form__msg {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.5;
 }
-.svc-faq-visual svg {
-    width: 100%;
-    height: 100%;
-    display: block;
+
+/* Mobile: stack input and button */
+@media (max-width: 575px) {
+    .newsletter-form__row {
+        flex-direction: column;
+    }
+    .newsletter-form__input {
+        width: 100%;
+    }
+    .newsletter-form__btn {
+        width: 100%;
+        justify-content: center;
+    }
 }

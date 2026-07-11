@@ -522,56 +522,10 @@
         </div>
 
         <div class="right-section">
-          <div class="image image-section svc-faq-visual tf-animate-1">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 800" preserveAspectRatio="xMidYMid slice" fill="none" style="width:100%;height:100%;display:block;">
-              <rect width="560" height="800" fill="#0a1929" />
-              <radialGradient id="g1" cx="80%" cy="20%" r="60%">
-                <stop offset="0%" stop-color="#43baff" stop-opacity="0.14" />
-                <stop offset="100%" stop-color="#43baff" stop-opacity="0" />
-              </radialGradient>
-              <rect width="560" height="800" fill="url(#g1)" />
-              <radialGradient id="g2" cx="15%" cy="85%" r="50%">
-                <stop offset="0%" stop-color="#6366f1" stop-opacity="0.1" />
-                <stop offset="100%" stop-color="#6366f1" stop-opacity="0" />
-              </radialGradient>
-              <rect width="560" height="800" fill="url(#g2)" />
-              <pattern id="grid" x="0" y="0" width="56" height="56" patternUnits="userSpaceOnUse">
-                <path d="M 56 0 L 0 0 0 56" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
-              </pattern>
-              <rect width="560" height="800" fill="url(#grid)" />
-              <!-- Ghost ? background -->
-              <text x="280" y="480" font-size="560" font-weight="900" text-anchor="middle" dominant-baseline="middle" fill="rgba(67,186,255,0.04)" font-family="system-ui,-apple-system,sans-serif">?</text>
-              <!-- Rings -->
-              <circle cx="280" cy="320" r="210" stroke="rgba(67,186,255,0.05)" stroke-width="1" fill="none" />
-              <circle cx="280" cy="320" r="160" stroke="rgba(67,186,255,0.07)" stroke-width="1" fill="none" />
-              <circle cx="280" cy="320" r="110" stroke="rgba(67,186,255,0.1)" stroke-width="1" fill="none" />
-              <circle cx="280" cy="320" r="64" fill="rgba(67,186,255,0.09)" stroke="rgba(67,186,255,0.28)" stroke-width="2" />
-              <text x="280" y="335" font-size="56" font-weight="900" text-anchor="middle" fill="rgba(67,186,255,0.95)" font-family="system-ui,sans-serif">?</text>
-              <!-- FAQ badge -->
-              <rect x="228" y="398" width="104" height="28" rx="14" fill="rgba(67,186,255,0.12)" stroke="rgba(67,186,255,0.32)" stroke-width="1" />
-              <text x="280" y="416" font-size="10" font-weight="700" letter-spacing="3" text-anchor="middle" fill="#43baff" font-family="system-ui,sans-serif">FAQ</text>
-              <!-- Floating question bubbles -->
-              <rect x="28" y="100" width="158" height="46" rx="23" fill="rgba(67,186,255,0.07)" stroke="rgba(67,186,255,0.16)" stroke-width="1" />
-              <text x="107" y="128" font-size="12" font-weight="600" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="system-ui,sans-serif">How does it work?</text>
-              <rect x="370" y="148" width="162" height="46" rx="23" fill="rgba(99,102,241,0.08)" stroke="rgba(99,102,241,0.2)" stroke-width="1" />
-              <text x="451" y="176" font-size="12" font-weight="600" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="system-ui,sans-serif">What's the price?</text>
-              <rect x="40" y="530" width="172" height="46" rx="23" fill="rgba(67,186,255,0.06)" stroke="rgba(67,186,255,0.13)" stroke-width="1" />
-              <text x="126" y="558" font-size="12" font-weight="600" text-anchor="middle" fill="rgba(255,255,255,0.38)" font-family="system-ui,sans-serif">How long will it take?</text>
-              <rect x="330" y="580" width="190" height="46" rx="23" fill="rgba(16,185,129,0.06)" stroke="rgba(16,185,129,0.14)" stroke-width="1" />
-              <text x="425" y="608" font-size="12" font-weight="600" text-anchor="middle" fill="rgba(255,255,255,0.38)" font-family="system-ui,sans-serif">Do you offer support?</text>
-              <rect x="140" y="670" width="280" height="46" rx="23" fill="rgba(67,186,255,0.05)" stroke="rgba(67,186,255,0.1)" stroke-width="1" />
-              <text x="280" y="698" font-size="12" font-weight="600" text-anchor="middle" fill="rgba(255,255,255,0.32)" font-family="system-ui,sans-serif">Can we customize everything?</text>
-              <!-- Dots -->
-              <circle cx="130" cy="210" r="4" fill="rgba(67,186,255,0.5)" />
-              <circle cx="440" cy="270" r="3" fill="rgba(99,102,241,0.6)" />
-              <circle cx="80" cy="460" r="5" fill="rgba(67,186,255,0.3)" />
-              <circle cx="490" cy="500" r="4" fill="rgba(16,185,129,0.4)" />
-              <circle cx="190" cy="640" r="3" fill="rgba(67,186,255,0.4)" />
-              <circle cx="470" cy="740" r="5" fill="rgba(99,102,241,0.3)" />
-              <circle cx="28" cy="28" r="4" fill="rgba(67,186,255,0.7)" />
-              <circle cx="44" cy="28" r="4" fill="rgba(67,186,255,0.35)" />
-              <circle cx="60" cy="28" r="4" fill="rgba(67,186,255,0.15)" />
-            </svg>
+          <div class="image image-section tf-animate-1">
+            <img src="{{ asset('image/section/img-section-company.jpg') }}"
+              data-src="{{ asset('image/section/img-section-company.jpg') }}"
+              alt="" class="lazyload">
           </div>
         </div>
 
