@@ -1172,7 +1172,7 @@
                 <span
                   style="width:1px; height:12px; background:rgba(255,255,255,0.2); display:inline-block;"></span>
                 <a href="javascript:void(0)" class="text-medium" style="color:rgba(255,255,255,0.5);">
-                  Comment({{ $homeBlog->comments_count ?? 0 }})
+                  Comment({{ $blog->comments->count() ?? 0 }})
                 </a>
               </div>
               <h5 class="title fw-5" style="margin-bottom:14px; line-height:1.4;">

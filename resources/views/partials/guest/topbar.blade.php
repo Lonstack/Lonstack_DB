@@ -25,7 +25,8 @@
       </ul>
     </div>
 
-    <div class="tf-tb-right flex align-items-center">
+    <div class="tf-tb-right flex align-items-center"
+         style="border-left:1px solid rgba(255,255,255,0.12); padding-left:20px; margin-left:20px; gap:10px;">
       <ul class="post-social">
         @if($settings->site_fb)
         <li><a href="{{ $settings->site_fb }}" target="_blank" class="icon-social"><i class="icon-fb"></i></a></li>
