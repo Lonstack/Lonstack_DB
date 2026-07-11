@@ -4,6 +4,7 @@
 <head>
     <base href="/public">
     <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJK800KXFR"></script>
@@ -17,16 +18,61 @@
 
         gtag('config', 'G-LJK800KXFR');
     </script>
-    <title> Lonstack Solution - IT Company</title>
-    <meta name="description"
-        content="Teckko – Modern, responsive IT Company HTML Template perfect for showcasing IT services, digital solutions & boosting online sales effortlessly.">
-    <meta name="keywords"
-        content="it company template, it services template, technology website, software company website, digital solutions, responsive it template, it business, technology company, startup website, it solutions, modern it template, best it website, corporate it, it agency, website template for it">
-    <meta name="author" content="themesflat.com" />
+   <title>@yield('title', 'Lonstack | Software Development & Blockchain Solutions')</title>
+  <meta name="description" content="Lonstack is a global technology company delivering custom software development, blockchain development, cloud engineering, cybersecurity, IT consulting, DevOps, and dedicated development teams to help businesses innovate and scale.">
+
+<meta name="keywords" content="Lonstack, software development company, custom software development, blockchain development, Web3 development, cloud solutions, DevOps services, cybersecurity, mobile app development, web development, UI UX design, IT consulting, dedicated development team, IT outstaffing, enterprise software, digital transformation, SaaS development, fintech development">
+
+<meta name="author" content="Lonstack">
+
+<meta name="robots" content="index, follow">
+
+<meta name="application-name" content="Lonstack">
+
+<meta name="generator" content="Laravel">
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lonstack">
+<meta property="og:locale" content="en_GB">
+
+<meta property="og:title" content="Lonstack | AI, Software Development & Blockchain Solutions">
+
+<meta property="og:description" content="Lonstack helps businesses innovate through AI, custom software development, blockchain solutions, cloud engineering, cybersecurity, DevOps, and enterprise technology consulting.">
+
+<meta property="og:url" content="{{ url()->current() }}">
+
+<meta property="og:image" content="{{ asset('image/seo/og-image.jpg') }}">
+<meta property="og:image:secure_url" content="{{ asset('image/seo/og-image.jpg') }}">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lonstack - AI, Software Development & Blockchain Solutions">
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <meta name="theme-color" content="#19272b">
+
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lonstack | Software Development & Blockchain Solutions">
+<meta name="twitter:description" content="Lonstack helps businesses innovate through AI, software engineering, blockchain, cloud, cybersecurity and digital transformation.">
+<meta name="twitter:image" content="{{ asset('image/seo/og-image.jpg') }}">
+
+<!-- Social Profiles -->
+<meta property="og:see_also" content="https://www.linkedin.com/company/lonstacksoftware">
+<meta property="og:see_also" content="https://www.instagram.com/lonstacksoftware">
+<meta property="og:see_also" content="https://www.tiktok.com/@lonstacksoftware">
+
+<!-- Business Contact -->
+<meta property="business:contact_data:website" content="https://lonstack.com">
+
+<!-- Brand -->
+<meta property="og:brand" content="Lonstack">
+
+<!-- Language -->
+<meta property="og:locale:alternate" content="en_US">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -76,7 +122,7 @@
                 <p class="promo-modal-desc">Refer a client and receive <strong>10% of the total project value</strong>
                     when
                     completed.</p>
-                <div class="promo-modal-dates">📅 Promo Period: 4 July 2026 – 5 September 2026</div>
+                <div class="promo-modal-dates">📅 Promo Period: 13 July 2026 – 30 September 2026</div>
                 <button class="promo-modal-terms" id="openTermsModal">Terms &amp; Conditions Apply</button>
             </div>
         </div>
@@ -137,7 +183,7 @@
 
                     <div class="terms-card terms-card--highlight">
                         <h4>6. Promotion Period</h4>
-                        <p class="terms-promo-dates">📅 4 July 2026 – 5 September 2026</p>
+                        <p class="terms-promo-dates">📅 13 July 2026 – 30 September 2026</p>
                     </div>
 
                     <div class="terms-card">
@@ -238,6 +284,7 @@
     <script src="js/odometer.min.js"></script>
     <script src="js/jquery-validate.js"></script>
     <script src="js/textanimation.js"></script>
+    <script src="js/newsletter.js"></script>
     <!-- Feather Icon JS -->
     <script src="{{asset('dashboard_assets/js/feather.min.js')}}" type="bba39571e659c7cea8b06dff-text/javascript"></script>
 

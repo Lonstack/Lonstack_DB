@@ -84,7 +84,6 @@
       @else
 
       {{-- Category tabs --}}
-      @php $allServices = $categories->flatMap(fn($c) => $c->activeServices); @endphp
       <div class="flat-animate-tab mb-60">
         <div class="wg-tab style-2">
           <ul class="tab-product" role="tablist">
@@ -104,75 +103,31 @@
         </div>
       </div>
 
-      {{-- Tab content --}}
+      {{-- Tab content — pure Bootstrap grid on ALL screen sizes, no Swiper --}}
       <div class="tab-content">
 
         {{-- All tab --}}
         <div class="tab-pane active show" id="tab-all" role="tabpanel">
           @php $allFlat = $categories->flatMap(fn($c) => $c->activeServices->map(fn($s) => ['service' => $s, 'category' => $c])); @endphp
-
-          {{-- Desktop grid --}}
-          <div class="row rg-30 d-none d-md-flex">
+          <div class="row rg-30">
             @foreach ($allFlat as $item)
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-sm-6">
               @include('pages.services._card', ['service' => $item['service'], 'category' => $item['category']])
             </div>
             @endforeach
-          </div>
-
-          {{-- Mobile: 5 cards per swiper page --}}
-          <div class="d-md-none">
-            <div class="swiper tf-swiper sw-services-mob-all"
-                 data-swiper='{"slidesPerView":1,"spaceBetween":0,"speed":500,"pagination":{"el":".svc-pag-all","clickable":true}}'>
-              <div class="swiper-wrapper">
-                @foreach ($allFlat->chunk(5) as $chunk)
-                <div class="swiper-slide">
-                  <div style="display:flex; flex-direction:column; gap:16px;">
-                    @foreach ($chunk as $item)
-                      @include('pages.services._card', ['service' => $item['service'], 'category' => $item['category']])
-                    @endforeach
-                  </div>
-                </div>
-                @endforeach
-              </div>
-            </div>
-            <div class="svc-pag-all sw-pagination mt-25 justify-content-center"></div>
           </div>
         </div>
 
         {{-- Per-category tabs --}}
         @foreach ($categories->filter(fn($c) => $c->activeServices->isNotEmpty()) as $category)
-        @php $catId = $category->id; @endphp
-        <div class="tab-pane" id="tab-{{ $catId }}" role="tabpanel">
-
-          {{-- Desktop grid --}}
-          <div class="row rg-30 d-none d-md-flex">
+        <div class="tab-pane" id="tab-{{ $category->id }}" role="tabpanel">
+          <div class="row rg-30">
             @foreach ($category->activeServices as $service)
-            <div class="col-lg-4 col-md-6">
+            <div class="col-lg-4 col-sm-6">
               @include('pages.services._card', ['service' => $service, 'category' => $category])
             </div>
             @endforeach
           </div>
-
-          {{-- Mobile: 5 cards per swiper page --}}
-          <div class="d-md-none">
-            <div class="swiper tf-swiper sw-services-mob-{{ $catId }}"
-                 data-swiper='{"slidesPerView":1,"spaceBetween":0,"speed":500,"pagination":{"el":".svc-pag-{{ $catId }}","clickable":true}}'>
-              <div class="swiper-wrapper">
-                @foreach ($category->activeServices->chunk(5) as $chunk)
-                <div class="swiper-slide">
-                  <div style="display:flex; flex-direction:column; gap:16px;">
-                    @foreach ($chunk as $service)
-                      @include('pages.services._card', ['service' => $service, 'category' => $category])
-                    @endforeach
-                  </div>
-                </div>
-                @endforeach
-              </div>
-            </div>
-            <div class="svc-pag-{{ $catId }} sw-pagination mt-25 justify-content-center"></div>
-          </div>
-
         </div>
         @endforeach
 

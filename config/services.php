@@ -14,7 +14,8 @@ return [
     |
     */
     'brevo' => [
-        'api_key' => env('BREVO_API_KEY'),
+        'key'              => env('BREVO_API_KEY'),
+        'newsletter_list'  => env('BREVO_NEWSLETTER_LIST_ID'),
     ],
 
     'postmark' => [
@@ -42,7 +43,4 @@ return [
         'site_key'   => env('RECAPTCHA_SITE_KEY'),
         'secret_key' => env('RECAPTCHA_SECRET_KEY'),
     ],
-
-
-
 ];

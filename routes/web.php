@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,11 @@ Route::middleware(['maintenance'])->group(function () {
 
     // ── Contact Form ──
     Route::post('/contact-us', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+
+    //Newsletter Form
+    Route::post('/newsletter', [NewsletterController::class, 'subscribe'])
+    ->name('newsletter.subscribe');
+    
 });
 
 Route::get('/dashboard', function () {

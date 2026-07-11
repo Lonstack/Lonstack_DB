@@ -11,6 +11,7 @@
     <meta name="description" content=".">
     <meta name="keywords" content="">
     <meta name="robots" content="index, follow">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $pageTitle ?? 'Property Management' }}</title>
 
     <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" type="image/x-icon">
