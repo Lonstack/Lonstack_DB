@@ -15,7 +15,7 @@ class PageController extends Controller
   public function home()
   {
     $homeBlogs = Blog::with('category')
-      ->withCount('comments')
+      ->withCount(['comments' => fn($q) => $q->where('status', 'published')])
       ->where('status', true)
       ->latest('published_at')
       ->take(2)
@@ -58,7 +58,7 @@ class PageController extends Controller
   public function about()
   {
     $aboutBlogs = \App\Models\Blog::with('category')
-      ->withCount('comments')
+      ->withCount(['comments' => fn($q) => $q->where('status', 'published')])
       ->where('status', true)
       ->latest('published_at')
       ->take(2)
@@ -215,7 +215,7 @@ class PageController extends Controller
   public function blogs()
   {
     $blogs = Blog::with('category', 'author')
-      ->withCount('comments')
+      ->withCount(['comments' => fn($q) => $q->where('status', 'published')])
       ->where('status', true)
       ->latest('published_at')
       ->get();
