@@ -104,7 +104,7 @@
                                        data-is-active="{{ $p->is_active ? 1 : 0 }}"
                                        data-sort="{{ $p->sort_order }}"
                                        data-cover="{{ $p->cover_image ? asset('storage/' . $p->cover_image) : '' }}"
-                                       data-gallery='@json(collect($p->gallery ?? [])->map(fn($g) => ["path" => $g, "url" => asset("storage/".$g)])->values())'
+                                       data-gallery="{{ e(json_encode(collect($p->gallery ?? [])->map(fn($g) => ['path' => $g, 'url' => asset('storage/'.$g)])->values())) }}"
                                        data-bs-toggle="modal" data-bs-target="#edit_portfolio">
                                         <i class="ti ti-edit"></i>
                                     </a>
@@ -714,6 +714,34 @@ document.getElementById('edit-submit-btn').addEventListener('click', function ()
                 const img     = document.getElementById('edit-cover-img');
                 if (this.dataset.cover) { img.src = this.dataset.cover; preview.style.display = 'block'; }
                 else { preview.style.display = 'none'; }
+
+                const galleryContainer = document.getElementById('edit-gallery-existing');
+                galleryContainer.innerHTML = '';
+                document.getElementById('edit-gallery-preview').innerHTML = '';
+                editGalleryDT.items.clear();
+
+                const gallery = JSON.parse(this.dataset.gallery || '[]');
+                gallery.forEach(function (item) {
+                    const div = document.createElement('div');
+                    div.style.cssText = 'position:relative;display:inline-block;';
+                    div.innerHTML =
+                        '<img src="' + item.url + '" style="width:80px;height:60px;object-fit:cover;border-radius:4px;" alt="">'
+                        + '<button type="button" class="btn btn-danger btn-sm remove-gallery-img"'
+                        + ' data-path="' + item.path + '"'
+                        + ' style="position:absolute;top:2px;right:2px;padding:1px 4px;font-size:10px;line-height:1;">'
+                        + '<i class="ti ti-x"></i></button>'
+                        + '<input type="hidden" name="remove_gallery[]" value="' + item.path + '" disabled>';
+                    galleryContainer.appendChild(div);
+                });
+
+                galleryContainer.querySelectorAll('.remove-gallery-img').forEach(function (removeBtn) {
+                    removeBtn.addEventListener('click', function () {
+                        const hiddenInput = this.parentElement.querySelector('input[type="hidden"]');
+                        hiddenInput.disabled = false;
+                        this.parentElement.style.opacity = '0.4';
+                        this.disabled = true;
+                    });
+                });
             });
         }
 
