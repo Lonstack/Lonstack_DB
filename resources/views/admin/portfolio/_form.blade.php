@@ -140,4 +140,46 @@
         @endif
     </div>
 
+    {{-- Challenge (Quill) --}}
+    <div class="col-md-12 mb-3">
+        <label class="form-label">Challenge <small class="text-muted">(what business problem existed?)</small></label>
+        @if ($edit ?? false)
+            <input type="hidden" name="challenge" id="edit-challenge-input">
+            <div id="edit-challenge-editor" style="min-height:120px;"></div>
+        @else
+            <input type="hidden" name="challenge" id="add-challenge-input">
+            <div id="add-challenge-editor" style="min-height:120px;"></div>
+        @endif
+    </div>
+
+    {{-- Solution (Quill) --}}
+    <div class="col-md-12 mb-3">
+        <label class="form-label">Solution <small class="text-muted">(what Lonstack built)</small></label>
+        @if ($edit ?? false)
+            <input type="hidden" name="solution" id="edit-solution-input">
+            <div id="edit-solution-editor" style="min-height:120px;"></div>
+        @else
+            <input type="hidden" name="solution" id="add-solution-input">
+            <div id="add-solution-editor" style="min-height:120px;"></div>
+        @endif
+    </div>
+
+    {{-- Technologies (comma-separated → JSON) --}}
+    <div class="col-md-6 mb-3">
+        <label class="form-label">Technologies <small class="text-muted">(comma-separated)</small></label>
+        <input type="text" name="technologies"
+               id="{{ ($edit ?? false) ? 'edit-technologies' : 'add-technologies' }}"
+               class="form-control" placeholder="e.g. React Native, Node.js, PostgreSQL">
+        <small class="text-muted">Each item becomes a tag on the frontend.</small>
+    </div>
+
+    {{-- Features (comma-separated → JSON) --}}
+    <div class="col-md-6 mb-3">
+        <label class="form-label">Features <small class="text-muted">(comma-separated)</small></label>
+        <input type="text" name="features"
+               id="{{ ($edit ?? false) ? 'edit-features' : 'add-features' }}"
+               class="form-control" placeholder="e.g. User authentication, Order management, Payments">
+        <small class="text-muted">Each item becomes a bullet point on the frontend.</small>
+    </div>
+
 </div>

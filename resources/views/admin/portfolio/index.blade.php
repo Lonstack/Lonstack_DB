@@ -96,6 +96,10 @@
                                        data-excerpt="{{ $p->excerpt }}"
                                        data-description="{{ e($p->description) }}"
                                        data-summary="{{ e($p->summary) }}"
+                                       data-challenge="{{ e($p->challenge) }}"
+                                       data-solution="{{ e($p->solution) }}"
+                                       data-technologies="{{ $p->technologies ? implode(', ', $p->technologies) : '' }}"
+                                       data-features="{{ $p->features ? implode(', ', $p->features) : '' }}"
                                        data-tags="{{ $p->tags ? implode(', ', $p->tags) : '' }}"
                                        data-is-active="{{ $p->is_active ? 1 : 0 }}"
                                        data-sort="{{ $p->sort_order }}"
@@ -243,10 +247,14 @@ const quillOptions = {
     },
 };
 
-const addDescQuill  = new Quill('#add-description-editor',  quillOptions);
-const addSumQuill   = new Quill('#add-summary-editor',      quillOptions);
-const editDescQuill = new Quill('#edit-description-editor', quillOptions);
-const editSumQuill  = new Quill('#edit-summary-editor',     quillOptions);
+const addDescQuill      = new Quill('#add-description-editor',      quillOptions);
+const addSumQuill       = new Quill('#add-summary-editor',           quillOptions);
+const addChallengeQuill = new Quill('#add-challenge-editor',         quillOptions);
+const addSolutionQuill  = new Quill('#add-solution-editor',          quillOptions);
+const editDescQuill     = new Quill('#edit-description-editor',      quillOptions);
+const editSumQuill      = new Quill('#edit-summary-editor',          quillOptions);
+const editChallengeQuill= new Quill('#edit-challenge-editor',        quillOptions);
+const editSolutionQuill = new Quill('#edit-solution-editor',         quillOptions);
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -367,6 +375,8 @@ document.getElementById('add-submit-btn').addEventListener('click', function () 
 
     document.getElementById('add-description-input').value = addDescQuill.root.innerHTML;
     document.getElementById('add-summary-input').value     = addSumQuill.root.innerHTML;
+    document.getElementById('add-challenge-input').value   = addChallengeQuill.root.innerHTML;
+    document.getElementById('add-solution-input').value    = addSolutionQuill.root.innerHTML;
 
     const form = document.getElementById('add-form');
     const fd   = new FormData(form);
@@ -388,6 +398,8 @@ document.getElementById('add-submit-btn').addEventListener('click', function () 
             form.reset();
             addDescQuill.setContents([]);
             addSumQuill.setContents([]);
+            addChallengeQuill.setContents([]);
+            addSolutionQuill.setContents([]);
             document.getElementById('add-cover-preview').style.display = 'none';
             document.getElementById('add-gallery-preview').innerHTML = '';
             addGalleryDT.items.clear();
@@ -409,6 +421,8 @@ document.getElementById('edit-submit-btn').addEventListener('click', function ()
 
     document.getElementById('edit-description-input').value = editDescQuill.root.innerHTML;
     document.getElementById('edit-summary-input').value     = editSumQuill.root.innerHTML;
+    document.getElementById('edit-challenge-input').value   = editChallengeQuill.root.innerHTML;
+    document.getElementById('edit-solution-input').value    = editSolutionQuill.root.innerHTML;
 
     const form = document.getElementById('edit-form');
     const fd   = new FormData(form);
@@ -482,6 +496,11 @@ document.getElementById('edit-submit-btn').addEventListener('click', function ()
 
             editDescQuill.root.innerHTML = this.dataset.description || '';
             editSumQuill.root.innerHTML  = this.dataset.summary     || '';
+            editChallengeQuill.root.innerHTML = this.dataset.challenge || '';
+            editSolutionQuill.root.innerHTML  = this.dataset.solution  || '';
+
+            f.querySelector('[name="technologies"]').value = this.dataset.technologies || '';
+            f.querySelector('[name="features"]').value     = this.dataset.features     || '';
 
             const preview = document.getElementById('edit-cover-preview');
             const img     = document.getElementById('edit-cover-img');
@@ -645,6 +664,10 @@ document.getElementById('edit-submit-btn').addEventListener('click', function ()
             +       ' data-excerpt="' + esc(p.excerpt) + '"'
             +       ' data-description="' + esc(p.description) + '"'
             +       ' data-summary="' + esc(p.summary) + '"'
+            +       ' data-challenge="' + esc(p.challenge) + '"'
+            +       ' data-solution="' + esc(p.solution) + '"'
+            +       ' data-technologies="' + esc(p.technologies_str) + '"'
+            +       ' data-features="' + esc(p.features_str) + '"'
             +       ' data-tags="' + esc(p.tags_str) + '"'
             +       ' data-is-active="' + (isActive ? 1 : 0) + '"'
             +       ' data-sort="' + p.sort_order + '"'
@@ -683,6 +706,10 @@ document.getElementById('edit-submit-btn').addEventListener('click', function ()
                 f.querySelector('[name="is_active"]').checked  = this.dataset.isActive    == '1';
                 editDescQuill.root.innerHTML = this.dataset.description || '';
                 editSumQuill.root.innerHTML  = this.dataset.summary     || '';
+                editChallengeQuill.root.innerHTML = this.dataset.challenge || '';
+                editSolutionQuill.root.innerHTML  = this.dataset.solution  || '';
+                f.querySelector('[name="technologies"]').value = this.dataset.technologies || '';
+                f.querySelector('[name="features"]').value     = this.dataset.features     || '';
                 const preview = document.getElementById('edit-cover-preview');
                 const img     = document.getElementById('edit-cover-img');
                 if (this.dataset.cover) { img.src = this.dataset.cover; preview.style.display = 'block'; }

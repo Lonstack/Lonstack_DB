@@ -18,9 +18,13 @@ class Portfolio extends Model
         'cover_image',
         'excerpt',
         'description',
+        'challenge',
+        'solution',
         'summary',
         'gallery',
         'tags',
+        'technologies',
+        'features',
         'is_active',
         'sort_order',
     ];
@@ -29,6 +33,8 @@ class Portfolio extends Model
         'published_at' => 'date',
         'gallery'      => 'array',
         'tags'         => 'array',
+        'technologies' => 'array',
+        'features'     => 'array',
         'is_active'    => 'boolean',
     ];
 

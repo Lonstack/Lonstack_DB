@@ -102,6 +102,86 @@
 
     </div>
 
+    {{-- Challenge & Solution --}}
+    @if ($portfolio->challenge || $portfolio->solution)
+    <div class="row rg-40 mb-60">
+
+      @if ($portfolio->challenge)
+      <div class="col-lg-{{ $portfolio->solution ? '6' : '12' }}">
+        <div style="height:100%; border:1px solid var(--stroke-2); border-radius:16px; padding:36px 32px;">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+            <div style="width:44px; height:44px; border-radius:50%; background:rgba(67,186,255,0.12);
+                        display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i class="icon-puzzle" style="font-size:20px; color:var(--primary);"></i>
+            </div>
+            <h3 style="font-size:clamp(18px,2vw,22px); font-weight:700; margin:0;">The Challenge</h3>
+          </div>
+          <div class="portfolio-rich-text">
+            {!! $portfolio->challenge !!}
+          </div>
+        </div>
+      </div>
+      @endif
+
+      @if ($portfolio->solution)
+      <div class="col-lg-{{ $portfolio->challenge ? '6' : '12' }}">
+        <div style="height:100%; border:1px solid var(--stroke-2); border-radius:16px; padding:36px 32px;">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+            <div style="width:44px; height:44px; border-radius:50%; background:rgba(67,186,255,0.12);
+                        display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i class="icon-lightbulb" style="font-size:20px; color:var(--primary);"></i>
+            </div>
+            <h3 style="font-size:clamp(18px,2vw,22px); font-weight:700; margin:0;">Our Solution</h3>
+          </div>
+          <div class="portfolio-rich-text">
+            {!! $portfolio->solution !!}
+          </div>
+        </div>
+      </div>
+      @endif
+
+    </div>
+    @endif
+
+    {{-- Technologies & Features --}}
+    @if (($portfolio->technologies && count($portfolio->technologies)) || ($portfolio->features && count($portfolio->features)))
+    <div class="row rg-40 mb-60">
+
+      @if ($portfolio->technologies && count($portfolio->technologies))
+      <div class="col-lg-{{ ($portfolio->features && count($portfolio->features)) ? '6' : '12' }}">
+        <h3 style="font-size:clamp(18px,2vw,22px); font-weight:700; margin-bottom:20px;">Technologies Used</h3>
+        <div class="d-flex flex-wrap gap-2">
+          @foreach ($portfolio->technologies as $tech)
+          <span style="padding:8px 20px; border-radius:50px; font-size:14px; font-weight:600;
+                       background:rgba(67,186,255,0.1); border:1px solid rgba(67,186,255,0.3);
+                       color:var(--primary);">
+            {{ $tech }}
+          </span>
+          @endforeach
+        </div>
+      </div>
+      @endif
+
+      @if ($portfolio->features && count($portfolio->features))
+      <div class="col-lg-{{ ($portfolio->technologies && count($portfolio->technologies)) ? '6' : '12' }}">
+        <h3 style="font-size:clamp(18px,2vw,22px); font-weight:700; margin-bottom:20px;">Key Features</h3>
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
+          @foreach ($portfolio->features as $feature)
+          <li style="display:flex; align-items:flex-start; gap:12px;">
+            <span style="width:22px; height:22px; border-radius:50%; background:rgba(67,186,255,0.15);
+                         display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;">
+              <i class="icon-check" style="font-size:11px; color:var(--primary);"></i>
+            </span>
+            <span style="font-size:15px; line-height:1.5;">{{ $feature }}</span>
+          </li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
+
+    </div>
+    @endif
+
     {{-- Gallery images --}}
     @if ($portfolio->gallery && count($portfolio->gallery))
     <div class="mb-60">

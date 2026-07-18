@@ -33,6 +33,10 @@ class PortfolioController extends Controller
             'excerpt'      => ['nullable', 'string'],
             'description'  => ['nullable', 'string'],
             'summary'      => ['nullable', 'string'],
+            'challenge'    => ['nullable', 'string'],
+            'solution'     => ['nullable', 'string'],
+            'technologies' => ['nullable', 'string'],
+            'features'     => ['nullable', 'string'],
             'tags'         => ['nullable', 'string'],
             'is_active'    => ['nullable', 'boolean'],
             'sort_order'   => ['nullable', 'integer'],
@@ -50,11 +54,13 @@ class PortfolioController extends Controller
             }
         }
 
-        $data['gallery']    = $gallery ?: null;
-        $data['tags']       = $this->parseTags($data['tags'] ?? null);
-        $data['slug']       = Str::slug($data['slug'] ?? $data['title']);
-        $data['is_active']  = $request->boolean('is_active', true);
-        $data['sort_order'] = $data['sort_order'] ?? 0;
+        $data['gallery']       = $gallery ?: null;
+        $data['tags']          = $this->parseTags($data['tags'] ?? null);
+        $data['technologies']  = $this->parseTags($request->input('technologies'));
+        $data['features']      = $this->parseTags($request->input('features'));
+        $data['slug']          = Str::slug($data['slug'] ?? $data['title']);
+        $data['is_active']     = $request->boolean('is_active', true);
+        $data['sort_order']    = $data['sort_order'] ?? 0;
 
         $portfolio = Portfolio::create($data);
         $portfolio->load('service');
@@ -81,6 +87,10 @@ class PortfolioController extends Controller
             'excerpt'             => ['nullable', 'string'],
             'description'         => ['nullable', 'string'],
             'summary'             => ['nullable', 'string'],
+            'challenge'           => ['nullable', 'string'],
+            'solution'            => ['nullable', 'string'],
+            'technologies'        => ['nullable', 'string'],
+            'features'            => ['nullable', 'string'],
             'tags'                => ['nullable', 'string'],
             'is_active'           => ['nullable', 'boolean'],
             'sort_order'          => ['nullable', 'integer'],
@@ -109,11 +119,13 @@ class PortfolioController extends Controller
             }
         }
 
-        $data['gallery']    = $existingGallery ?: null;
-        $data['tags']       = $this->parseTags($data['tags'] ?? null);
-        $data['slug']       = Str::slug($data['slug'] ?? $data['title']);
-        $data['is_active']  = $request->boolean('is_active', true);
-        $data['sort_order'] = $data['sort_order'] ?? 0;
+        $data['gallery']      = $existingGallery ?: null;
+        $data['tags']         = $this->parseTags($data['tags'] ?? null);
+        $data['technologies'] = $this->parseTags($request->input('technologies'));
+        $data['features']     = $this->parseTags($request->input('features'));
+        $data['slug']         = Str::slug($data['slug'] ?? $data['title']);
+        $data['is_active']    = $request->boolean('is_active', true);
+        $data['sort_order']   = $data['sort_order'] ?? 0;
 
         $portfolio->update($data);
         $portfolio->load('service');
@@ -176,8 +188,14 @@ class PortfolioController extends Controller
             'excerpt'      => $p->excerpt,
             'description'  => $p->description,
             'summary'      => $p->summary,
+            'challenge'    => $p->challenge,
+            'solution'     => $p->solution,
             'tags'         => $p->tags ?? [],
             'tags_str'     => $p->tags ? implode(', ', $p->tags) : '',
+            'technologies' => $p->technologies ?? [],
+            'technologies_str' => $p->technologies ? implode(', ', $p->technologies) : '',
+            'features'     => $p->features ?? [],
+            'features_str' => $p->features ? implode(', ', $p->features) : '',
             'is_active'    => $p->is_active,
             'sort_order'   => $p->sort_order,
             'service_id'   => $p->service_id,
