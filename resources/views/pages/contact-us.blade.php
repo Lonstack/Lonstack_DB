@@ -48,8 +48,8 @@
                             <div class="contact-item title-animation">
                                 <i class="icon-phone"></i>
                                 <div class="lh-30" style="display:flex; flex-direction:column; gap:4px;">
-                                    <a href="tel:+2348083976834">+234 (80) 83976834</a>
-                                    <a href="tel:+4407350154933">+44 (07) 350154933</a>
+                                    <a href="tel:+2348083976834">+234 (81) 42944293</a>
+                                    <a href="tel:+4407350154933">+234 (90) 17078134</a>
                                 </div>
                             </div>
                         </div>
