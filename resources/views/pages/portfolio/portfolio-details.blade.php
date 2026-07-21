@@ -257,25 +257,25 @@
         <ul class="post-social style-radius-50 g-10">
           <li>
             <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
-               target="_blank" rel="noopener noreferrer" class="icon-social" title="Share on Facebook">
+              target="_blank" rel="noopener noreferrer" class="icon-social" title="Share on Facebook">
               <i class="icon-fb"></i>
             </a>
           </li>
           <li>
             <a href="https://x.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($portfolio->title) }}"
-               target="_blank" rel="noopener noreferrer" class="icon-social" title="Share on X">
+              target="_blank" rel="noopener noreferrer" class="icon-social" title="Share on X">
               <i class="icon-X"></i>
             </a>
           </li>
           <li>
             <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->url()) }}"
-               target="_blank" rel="noopener noreferrer" class="icon-social" title="Share on LinkedIn">
+              target="_blank" rel="noopener noreferrer" class="icon-social" title="Share on LinkedIn">
               <i class="icon-linkedin"></i>
             </a>
           </li>
           <li>
             <a href="https://www.instagram.com/lonstacksoftware"
-               target="_blank" rel="noopener noreferrer" class="icon-social" title="Follow on Instagram">
+              target="_blank" rel="noopener noreferrer" class="icon-social" title="Follow on Instagram">
               <i class="icon-instagram"></i>
             </a>
           </li>

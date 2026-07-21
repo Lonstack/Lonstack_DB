@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('dashboard_assets/plugins/quill/quill.core.css') }}">
 <link rel="stylesheet" href="{{ asset('dashboard_assets/plugins/quill/quill.snow.css') }}">
 <style>
   .ql-container {

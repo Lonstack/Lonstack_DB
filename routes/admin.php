@@ -231,7 +231,10 @@ Route::prefix('admin')
       ->name('portfolio.')
       ->group(function () {
         Route::get('/', [PortfolioController::class, 'index'])->name('index');
+        Route::get('/create', [PortfolioController::class, 'create'])->name('create');
         Route::post('/', [PortfolioController::class, 'store'])->name('store');
+        Route::get('/{portfolio}/edit', [PortfolioController::class, 'edit'])->name('edit');
+        Route::get('/{portfolio}', [PortfolioController::class, 'show'])->name('show');
         Route::post('/{portfolio}', [PortfolioController::class, 'update'])->name('update');
         Route::patch('/{portfolio}/status', [PortfolioController::class, 'toggleStatus'])->name('status');
         Route::delete('/{portfolio}', [PortfolioController::class, 'destroy'])->name('destroy');

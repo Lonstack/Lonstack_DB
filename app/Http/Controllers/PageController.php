@@ -25,6 +25,7 @@ class PageController extends Controller
 
     $homePortfolios = Portfolio::with('service')
       ->where('is_active', true)
+      ->orderBy('sort_order')
       ->latest()
       ->take(4)
       ->get();
@@ -66,6 +67,7 @@ class PageController extends Controller
 
     $aboutPortfolios = Portfolio::with('service')
       ->where('is_active', true)
+      ->orderBy('sort_order')
       ->latest()
       ->take(4)
       ->get();
@@ -131,6 +133,7 @@ class PageController extends Controller
 
     $portfolios = Portfolio::with('service')
       ->where('is_active', true)
+      ->orderBy('sort_order')
       ->latest()
       ->paginate(6);
 
@@ -144,6 +147,7 @@ class PageController extends Controller
 
     $query = Portfolio::with('service')
       ->where('is_active', true)
+      ->orderBy('sort_order')
       ->latest();
 
     if ($serviceId) {

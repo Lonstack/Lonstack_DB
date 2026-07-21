@@ -2,7 +2,6 @@
 
 @push('styles')
 {{-- Quill CSS --}}
-<link rel="stylesheet" href="{{ asset('dashboard_assets/plugins/quill/quill.core.css') }}">
 <link rel="stylesheet" href="{{ asset('dashboard_assets/plugins/quill/quill.snow.css') }}">
 {{-- Service detail page styles --}}
 <link rel="stylesheet" href="{{ asset('dashboard_assets/css/service-detail.css') }}">

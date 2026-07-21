@@ -70,7 +70,7 @@
           </ul>
         </li>
 
-        <li class="submenu mb-1">
+        <li class="submenu mb-1 {{ request()->routeIs('admin.portfolio.*') ? 'active' : '' }}">
           <a href="javascript:void(0)">
             <i class="ti ti-briefcase fs-16 me-2"></i>
             <span>Portfolio</span>
@@ -79,6 +79,9 @@
           <ul>
             <li class="{{ request()->routeIs('admin.portfolio.index') ? 'active' : '' }}">
               <a href="{{ route('admin.portfolio.index') }}">All Portfolio</a>
+            </li>
+            <li class="{{ request()->routeIs('admin.portfolio.create') ? 'active' : '' }}">
+              <a href="{{ route('admin.portfolio.create') }}">Add Portfolio</a>
             </li>
           </ul>
         </li>
